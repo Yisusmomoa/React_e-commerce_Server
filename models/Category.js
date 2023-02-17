@@ -11,7 +11,7 @@ Category.init({
         type: DataTypes.STRING,
         allowNull: false,
         unique:true,
-    }, 
+    },
 }, {
     sequelize: db,
     modelName: "Category"

@@ -26,7 +26,7 @@ class ProductController{
             const result=await Product.create({
                 name:name,
                 price:price,
-                categoryId:CategoryId,
+                CategoryId:CategoryId,
                 description:description,
                 stock:stock
             })

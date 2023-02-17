@@ -3,7 +3,8 @@ import "dotenv/config"
 
 const SECRET=process.env.SECRET
 
-// primero generamos una función llamada generateToken, para crar el token
+// primero generamos una función llamada generateToken,
+//  para crar el token
 export const generateToken=(payload)=>{
     const token= jwt.sign(
         payload, //la informaicón del usuario

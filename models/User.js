@@ -37,9 +37,13 @@ User.init({
             isEmail:true
         }
     },
+    role: {
+        type: DataTypes.STRING(25)
+    },
     imgProfile:{
         type:DataTypes.STRING,
-        allowNull:false
+        allowNull:false,
+        defaultValue:"https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
     }
 }, {
     sequelize: db,
@@ -68,6 +72,9 @@ User.beforeCreate(async (user, options)=>{
 User.afterCreate(async user=>{
     if(user.id===1){
         return await user.update({role:"admin"})
+    }
+    else{
+        return await user.update({role:"normal"})
     }
 })
 

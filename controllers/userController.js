@@ -6,8 +6,8 @@ import bcrypt from 'bcrypt'
 class UserController {
     static async createUser(req, res){
         try {
-            const {name, lastName, password, email}=req.body
-            const result=await User.create({name, lastName,password, email});
+            const {username, password, email}=req.body
+            const result=await User.create({username,password, email});
             res.status(201).send({
                 success:true,
                 message:"Usuario creado con exito",
@@ -57,17 +57,14 @@ class UserController {
     static async updateUser(req, res){
         try {
             const {
-                name,
-                lastName,
                 email,
                 username,
                 password,
-                role}=req.body
+                role
+            }=req.body
             
             const user=await User.findByPk(req.params.id)
             if(!user) throw "No se encontro el usuario"
-            user.name=name|| user.name
-            user.lastName=lastName||user.lastName
             user.email=email||user.email
             user.username=username|| user.username
             user.password=password || user.password
@@ -117,10 +114,14 @@ class UserController {
             // mando la password que vien del body
             const isEqual=await results.validatePassword(password)
            
-            if(!isEqual) throw "No se encontro el usuario"
-            // le mandamos una key, 
+            if(!isEqual) throw "Error en la contraseña"
+            // le mandamos una key, eswta es la información que va a
+            // almacenar el token
             const payload={
+                id:results.id,
                 email:results.email,
+                username:results.username,
+                imgProfile:results.imgProfile,
                 role:results.role,
             }
             const token=generateToken(payload)

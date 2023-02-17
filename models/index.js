@@ -9,20 +9,11 @@ import User from "./User.js";
 import WishList from './WishList.js';
 
 // categorias de los productos
-Category.hasMany(Product, {
-    foreignKey: {
-        allowNull: false
-    },
-    onDelete: "NO ACTION"
-})
+Category.hasMany(Product)
 Product.belongsTo(Category)
 
 // fabricantes de los productos
-Manufacturer.hasMany(Product, {
-    foreignKey:{
-        allowNull:false
-    }
-})
+Manufacturer.hasMany(Product)
 Product.belongsTo(Manufacturer)
 
 // imganes de los productos
@@ -46,4 +37,4 @@ Buy.belongsToMany(Product, {through:DetailBuy})
 Product.belongsToMany(Buy, {through:DetailBuy})
 
 
-export { Category, Product, User }
+export { Category, Product, User, Manufacturer, Buy, DetailBuy, ImgProduct,Rol,WishList }
