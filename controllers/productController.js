@@ -1,4 +1,4 @@
-import { Product } from "../models/index.js";
+import { Manufacturer, Product } from "../models/index.js";
 import {Category} from "../models/index.js";
 
 class ProductController{
@@ -6,10 +6,13 @@ class ProductController{
     static async getAllProducts(req, res){
         try {
             const products=await Product.findAll({
-                attributes:["id", "name", "description", "price", "stock"],
+                attributes:["id", "name", "description", "price"],
                 include:[
                     {
                         model:Category, required:true, attributes:["id", "name"]
+                    },
+                    {
+                        model:Manufacturer, attributes:["id", "name"]
                     }
                 ]
             })
@@ -21,28 +24,31 @@ class ProductController{
     }
 
     static async createProduct(req, res){
-        const {name, price, CategoryId, description, stock}=req.body
+        const {name, price, CategoryId, description,ManuFacturerId }=req.body
         try {
             const result=await Product.create({
                 name:name,
                 price:price,
                 CategoryId:CategoryId,
                 description:description,
-                stock:stock
+                ManuFacturerId:ManuFacturerId
             })
             res.status(201).send(result)
         } catch (error) {
-            res.status(500).send(error)
+            res.status(500).send({message:error})
         }
     }
 
     static async getOneProductById(req, res){
         try {
             const product=await Product.findOne({
-                attributes:["id", "name", "description", "price", "stock"],
+                attributes:["id", "name", "description", "price"],
                 include:[
                     {
                         model:Category, required:true, attributes:["id", "name"]
+                    },
+                    {
+                        model:Manufacturer, required:true, attributes:["id", "name"]
                     }
                 ],
                 where:{
@@ -54,7 +60,7 @@ class ProductController{
             }
             res.status(200).send(product)
         } catch (error) {
-            res.status(500).send({error})
+            res.status(500).send({message:error})
         }
     }
 
@@ -69,12 +75,12 @@ class ProductController{
             }
             res.status(200).send({result})
         } catch (error) {
-            return res.status(500).send({error})
+            return res.status(500).send({message:error})
         }
     }
 
     static async updateproduct(req, res){
-        const {name, price, CategoryId, description, stock}=req.body
+        const {name, price, CategoryId, description, ManuFacturerId}=req.body
         try {
             const product=await Product.findByPk(req.params.id)
             if(!product) throw "No se encontro el producto"
@@ -83,7 +89,7 @@ class ProductController{
             product.price=price || product.price
             product.CategoryId=CategoryId || product.CategoryId
             product.description=description || product.description
-            product.stock=stock || product.stock
+            product.ManuFacturerId=ManuFacturerId|| product.ManuFacturerId
             product.save()
 
             res.status(200).send(product)

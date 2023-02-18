@@ -12,12 +12,13 @@ userRoutes.post("/login", UserController.login)
 
 userRoutes.use(authMe)
 userRoutes.get("/me", UserController.me)
-userRoutes.get("/:id", UserController.getUserById)
+
 userRoutes.post("/logout", UserController.logOut)
 userRoutes.put("/:id", UserController.updateUser)
+userRoutes.delete("/:id", UserController.deleteUser)
 
 userRoutes.use(isAdmin)
-userRoutes.delete("/id", UserController.deleteUser)
+userRoutes.get("/:id", UserController.getUserById)
 userRoutes.get("/", UserController.getAllUser)
 
 export default userRoutes

@@ -15,7 +15,7 @@ app.use(cookieParser())
 app.use(morgan('tiny'))
 
 app.use('/api', routes)
-await db.sync({force:true}).then(()=>{
+await db.sync({force:false}).then(()=>{
     app.listen(PORT, ()=>{
         console.log("servidor corriendo", PORT)
     })

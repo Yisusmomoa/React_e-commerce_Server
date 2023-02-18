@@ -44,6 +44,10 @@ User.init({
         type:DataTypes.STRING,
         allowNull:false,
         defaultValue:"https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
+    },
+    isActive:{
+        type:DataTypes.BOOLEAN,
+        defaultValue:true
     }
 }, {
     sequelize: db,

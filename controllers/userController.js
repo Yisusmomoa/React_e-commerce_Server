@@ -24,8 +24,7 @@ class UserController {
     static async getAllUser(req, res){
         try {
             const users=await User.findAll({
-                attributes:["id", "name", 
-                    "lastName", "password", "role"]
+                attributes:["id", "username","isActive", "email", "role"]
             })
             if(users.length===0) throw "No hay usuarios para mostrar"
             res.status(200).send(users)
@@ -41,8 +40,7 @@ class UserController {
         try {
             const user=await User.findOne({
                 where:{id:req.params.id},
-                attributes:["id", "name", 
-                "lastName", "password", "role"]
+                attributes:["id", "username","isActive", "email", "role"]
             })
             if(!user) throw "No se encontro el usuario"
             res.status(200).send(user)
@@ -68,9 +66,17 @@ class UserController {
             user.email=email||user.email
             user.username=username|| user.username
             user.password=password || user.password
-            user.role=role || user.role
+            // user.role=role || user.role
             user.save()
-            
+            const payload={
+                id:user.id,
+                email:user.email,
+                username:user.username,
+                imgProfile:user.imgProfile,
+                role:user.role,
+            }
+            const token=generateToken(payload)
+            res.cookie("token", token)
             res.status(200).send({
                 success:true,
                 message:"Usuario editado con exito",
@@ -86,14 +92,14 @@ class UserController {
 
     static async deleteUser(req, res){
         try {
-            const result=await User.destroy({
-                where:{id:req.params.id}
-            })
-            console.log(result)
-            if(result===0) throw "Usuario no encontrado"
+            const user=await User.findByPk(req.user.id)
+            if(!user) throw "Usuario no encontrado"
+            console.log(user)
+            user.isActive=false
+            await user.save()
             res.status(200).send({
                 success:true,
-                result
+                user
             })
         } catch (error) {
             return res.status(500).send({

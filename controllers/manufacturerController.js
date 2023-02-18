@@ -26,12 +26,12 @@ class ManuFacturerController {
 
     static async getManufacturerById(req, res){
         try {
-            const id=req.params.id
-            const result=Manufacturer.findOne({
-                attributes:["id", "imgManuFacturer"],
-                where:{id}
+            const result=await Manufacturer.findOne({
+                attributes:["id","name", "imgManuFacturer"],
+                where:{id:req.params.id}
             })
-            if(!result) throw "No se encontro el producto"
+            console.log("result ", result)
+            if(!result) throw "No se encontro esa marca"
             res.status(200).send(result)
         } catch (error) {
             res.status(400).send({ success: false, message: error })
@@ -43,10 +43,10 @@ class ManuFacturerController {
             const result=await Manufacturer.destroy({
                 where:{id:req.params.id}
             })
-            if(result==0) throw "No se pudo eliminar la fabrica"
+            if(result==0) throw "No se pudo eliminar la marca"
             res.status(200).send({
                 result,
-                message:"Fabrica eliminada con exito"
+                message:"marca eliminada con exito"
             })
         } catch (error) {
             res.status(400).send({ success: false, message: error })
@@ -64,7 +64,8 @@ class ManuFacturerController {
             result.imgManuFacturer=imgManuFacturer|| result.imgManuFacturer
             await result.save
             res.status(200).send({
-                message:"marca editada con exito"
+                message:"marca editada con exito",
+                result
             })
         } catch (error) {
             res.status(400).send({ success: false, message: error })
