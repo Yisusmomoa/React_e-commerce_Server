@@ -5,7 +5,28 @@ import detailBuyController from "./detailBuyController.js";
 class BuyController{
     static async getAllBuysFromUser(req, res){
         try {
-          
+          const idUser=req.user.id
+          const results=await Buy.findAll({
+                attributes:["id", "subTotal", "superTotal"],
+                where:{UserId:idUser},
+                include:[
+                    {
+                        model:Product,
+                        attributes:["id", "name", "description", "price"],
+                        // include:[
+                        //     {
+                        //         model:Category, required:true, attributes:["id", "name"]
+                        //     },
+                        //     {
+                        //         model:Manufacturer, attributes:["id", "name"]
+                        //     }
+                        // ]
+                    }
+                ]
+          })
+          console.log(results)
+          if(!results) throw "No haz realizado compras"
+          res.status(200).send(results)
         } catch (error) {
             return res.status(400).send({message:error})
         }
@@ -16,7 +37,6 @@ class BuyController{
             const idUser=req.user.id
             // recibir un array con los productos y calcular el total y subtotal
             const {products}=req.body
-            console.log(products)
             // obtengo el precio de cada producto
             // convertir en función de la clase products?
             for (let index = 0; index < products.length; index++) {
@@ -56,7 +76,13 @@ class BuyController{
 
     static async getBuyByIdFromUser(req, res){
         try {
-            
+            const idUser=req.user.id
+            const idBuy=req.params.id
+            const results=await Buy.findOne({
+                where:{id:idBuy, UserId:idUser}
+            })
+            if(!results) throw "No se encontro la compra"
+            res.status(200).send(results)
         } catch (error) {
             return res.status(400).send({message:error})
         }
