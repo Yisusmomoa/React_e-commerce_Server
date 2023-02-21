@@ -12,9 +12,6 @@ const fileUpload=multer({
     storage:multer.memoryStorage(),
 }).array('images', 3)
 
-
-
-
 productRoutes.get("/",ProductController.getAllProducts)
 productRoutes.get("/:id",ProductController.getOneProductById)
 
