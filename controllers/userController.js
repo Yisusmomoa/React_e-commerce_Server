@@ -24,7 +24,7 @@ class UserController {
     static async getAllUser(req, res){
         try {
             const users=await User.findAll({
-                attributes:["id", "username","isActive", "email", "role"]
+                attributes:["id", "username","isActive", "email", "role", "imgProfile"]
             })
             if(users.length===0) throw "No hay usuarios para mostrar"
             res.status(200).send(users)
@@ -40,7 +40,7 @@ class UserController {
         try {
             const user=await User.findOne({
                 where:{id:req.params.id},
-                attributes:["id", "username","isActive", "email", "role"]
+                attributes:["id", "username","isActive", "email", "role", "imgProfile"]
             })
             if(!user) throw "No se encontro el usuario"
             res.status(200).send(user)
@@ -60,12 +60,17 @@ class UserController {
                 password,
                 role
             }=req.body
-            
+            const avatar=req.file
             const user=await User.findByPk(req.params.id)
             if(!user) throw "No se encontro el usuario"
+            if(avatar){
+                const resUploadImg=await user.uploadImgProfile(avatar, user.id)
+                user.imgProfile=resUploadImg||user.imgProfile
+            }
             user.email=email||user.email
             user.username=username|| user.username
             user.password=password || user.password
+            // user.profile=downloadUrl||user.profile
             // user.role=role || user.role
             user.save()
             const payload={
@@ -129,6 +134,7 @@ class UserController {
                 username:results.username,
                 imgProfile:results.imgProfile,
                 role:results.role,
+                imgProfile:results.imgProfile
             }
             const token=generateToken(payload)
             // este token tiene encriptada/hashaeada la información que le mande al payload

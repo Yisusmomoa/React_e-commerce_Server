@@ -1,6 +1,14 @@
 import { DataTypes , Model } from "sequelize";
 import db from "../db/db.js";
 import bcrypt from 'bcrypt'
+import { initializeApp } from "firebase/app";
+import {getDownloadURL, getStorage, ref, uploadBytesResumable} from 'firebase/storage'
+import "dotenv/config"
+import { firebaseConfig } from "../config/firebaseConfig.js";
+
+// Initialize Firebase
+initializeApp(firebaseConfig);
+const storage=getStorage()
 
 class User extends Model {
     hashAuth(password, salt){
@@ -14,6 +22,16 @@ class User extends Model {
         console.log(passwordHash)
         // se compara con el que ya está
        return passwordHash===this.password
+    }
+
+    async uploadImgProfile(file, idUser){
+        const storageRef=ref(storage, `user_Imgs/IdUser_${idUser}/${file.originalname}`)
+        const metaData={
+            contentType:file.mimetype
+        }
+        const resultado=await uploadBytesResumable(storageRef, file.buffer, metaData)
+        const downloadUrl=await getDownloadURL(resultado.ref)
+        return downloadUrl
     }
  }
 

@@ -2,20 +2,11 @@ import { ImgProduct } from "../models/index.js";
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import {getDownloadURL, getStorage, ref, uploadBytesResumable} from 'firebase/storage'
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-    apiKey: "AIzaSyAkfXD7CLAEmbxBPhF4EwvkJ_COsBYkG-c",
-    authDomain: "e-commerce-c409f.firebaseapp.com",
-    projectId: "e-commerce-c409f",
-    storageBucket: "e-commerce-c409f.appspot.com",
-    messagingSenderId: "249035537922",
-    appId: "1:249035537922:web:3b6b565fc33f567506b11b",
-    measurementId: "G-8NTHQHPLJ0"
-};
+import "dotenv/config"
+import { firebaseConfig } from "../config/firebaseConfig.js";
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+initializeApp(firebaseConfig);
 const storage=getStorage()
 
 
@@ -39,7 +30,9 @@ class imgProductController{
     }
 
     // para el update de la imagen, usar el id del producto y luego el id de la imagen
-
+    static async updateImgProduct(req,res){
+        
+    }
 }
 
 export default imgProductController

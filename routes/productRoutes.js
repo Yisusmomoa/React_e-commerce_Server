@@ -2,15 +2,9 @@ import express from "express"
 import ProductController from "../controllers/ProductController.js"
 import authMe from "../middleware/AuthMe.js"
 import isAdmin from "../middleware/isAdmin.js"
-import multer from "multer";
+import fileUpload from "../middleware/fileUpload.js";
 
 const productRoutes=express.Router()
-
-// ahora debo de pasar esta configuración como middleware a la ruta de createporduct
-// recibe un objeto con las propiedades del storage
-const fileUpload=multer({
-    storage:multer.memoryStorage(),
-}).array('images', 3)
 
 productRoutes.get("/",ProductController.getAllProducts)
 productRoutes.get("/:id",ProductController.getOneProductById)

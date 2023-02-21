@@ -3,6 +3,13 @@ import authMe from '../middleware/AuthMe.js'
 import isAdmin from '../middleware/isAdmin.js'
 import UserController from '../controllers/userController.js'
 
+import multer from "multer";
+
+// ahora debo de pasar esta configuración como middleware a la ruta de createporduct
+// recibe un objeto con las propiedades del storage
+const fileUpload=multer({
+    storage:multer.memoryStorage(),
+}).single('avatar')
 const userRoutes=express.Router()
 
 // middleware en ruta
@@ -14,7 +21,7 @@ userRoutes.use(authMe)
 userRoutes.get("/me", UserController.me)
 
 userRoutes.post("/logout", UserController.logOut)
-userRoutes.put("/:id", UserController.updateUser)
+userRoutes.put("/:id", fileUpload, UserController.updateUser)
 userRoutes.delete("/:id", UserController.deleteUser)
 
 userRoutes.use(isAdmin)
