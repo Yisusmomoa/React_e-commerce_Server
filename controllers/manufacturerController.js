@@ -1,5 +1,13 @@
 import { Manufacturer } from "../models/index.js"
 
+import { initializeApp } from "firebase/app";
+import {getDownloadURL, getStorage, 
+    ref, uploadBytesResumable} from 'firebase/storage'
+import { firebaseConfig } from "../config/firebaseConfig.js";
+// Initialize Firebase
+initializeApp(firebaseConfig);
+const storage=getStorage()
+
 class ManuFacturerController {
     static async getAllManufacturer(req, res){
         try {
@@ -13,11 +21,21 @@ class ManuFacturerController {
     }
     static async createManufacturer(req, res){
         try {
-            const {name, imgManuFacturer}=req.body
+            const {name}=req.body
+            const imgBrand=req.file
+            if(!name || !imgBrand) throw "Llena los campos"
+            const storageRef=ref(storage, `brand_Imgs/Brand_${name}/${imgBrand.originalname}`)
+            const metaData={
+                contentType:imgBrand.mimetype
+            }
+            const resultado=await uploadBytesResumable(storageRef, imgBrand.buffer, metaData)
+            const downloadUrl=await getDownloadURL(resultado.ref)
             const result=await Manufacturer.create({
                 name,
-                imgManuFacturer
+                imgManuFacturer:downloadUrl
             })
+            // result.imgManuFacturer=downloadUrl
+            // result.save()
             res.status(201).send(result)
         } catch (error) {
             res.status(400).send({ success: false, message: error })

@@ -2,7 +2,7 @@ import { ImgProduct } from "../models/index.js";
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import {getDownloadURL, getStorage, ref, uploadBytesResumable} from 'firebase/storage'
-import "dotenv/config"
+
 import { firebaseConfig } from "../config/firebaseConfig.js";
 
 // Initialize Firebase

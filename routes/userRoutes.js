@@ -10,8 +10,8 @@ import multer from "multer";
 const fileUpload=multer({
     storage:multer.memoryStorage(),
 }).single('avatar')
-const userRoutes=express.Router()
 
+const userRoutes=express.Router()
 // middleware en ruta
 
 userRoutes.post("/", UserController.createUser)
