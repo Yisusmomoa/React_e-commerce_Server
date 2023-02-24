@@ -204,6 +204,7 @@ class ProductController{
                     }
                 })
             }
+            
             const products=await Product.findAll({
                 attributes:["id", "name", "description", "price"],
                 include:[

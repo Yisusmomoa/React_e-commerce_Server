@@ -1,4 +1,7 @@
-import { WishList, Product, Category, Manufacturer, User } from "../models/index.js";
+import { WishList, 
+    Product, Category, 
+    Manufacturer, User, 
+    ImgProduct } from "../models/index.js";
 
 class wishListController{
     
@@ -31,14 +34,23 @@ class wishListController{
                             },
                             {
                                 model:Manufacturer, attributes:["id", "name"]
+                            },
+                            {
+                                model:ImgProduct, attributes:["LinkImg", "id"]
                             }
                         ]
                     }
                 ]
             }) 
-            if(!results) throw "No cuentas con productos en tu wishlist"
             const products=results[0].Products
-            res.status(200).send(products)
+            if(products.length==0) return res.status(200).send({
+                message:"No cuentas con productos en tu wishlist",
+                products
+            }) 
+            res.status(200).send({
+                message:"Estos son tus productos en tu wishlist",
+                products
+            })
         } catch (error) {
             return res.status(400).send({message:error})
         }
