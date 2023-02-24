@@ -1,4 +1,5 @@
 
+import { Op, where } from "sequelize";
 import { ImgProduct, Manufacturer, Product } from "../models/index.js";
 import {Category} from "../models/index.js";
 import imgProductController from "./ImgProductController.js"; 
@@ -114,6 +115,127 @@ class ProductController{
             return res.status(500).send({message:error})
             
         }
+    }
+
+    static async getProductsByCategory(req, res){
+        const idCategory=req.params.id
+        try {
+            const idBrand=req.params.id
+            if(!idCategory) throw "Selecciona una categoria"
+            const products=await Product.findAll({
+                attributes:["id", "name", "description", "price"],
+                include:[
+                    {
+                        model:Category, required:true, attributes:["id", "name"]
+                    },
+                    {
+                        model:Manufacturer, attributes:["id", "name"]
+                    },
+                    {
+                        model:ImgProduct, attributes:["LinkImg", "id"]
+                    }
+                ],
+                where:{
+                    CategoryId:idCategory
+                }
+            })
+            if(!products) throw "No existen productos de esa marca"
+            res.status(200).send(products)
+        } catch (error) {
+            console.log(error)
+            return res.status(500).send({error})
+        }
+    }
+
+    static async getProductsByBrand(req, res){
+        
+        try {
+            const idBrand=req.params.id
+            if(!idBrand) throw "Selecciona una marca"
+            const products=await Product.findAll({
+                attributes:["id", "name", "description", "price"],
+                include:[
+                    {
+                        model:Category, required:true, attributes:["id", "name"]
+                    },
+                    {
+                        model:Manufacturer, attributes:["id", "name"]
+                    },
+                    {
+                        model:ImgProduct, attributes:["LinkImg", "id"]
+                    }
+                ],
+                where:{
+                    ManuFacturerId:idBrand
+                }
+            })
+            if(!products) throw "No existen productos de esa marca"
+            res.status(200).send(products)
+        } catch (error) {
+            console.log(error)
+            return res.status(500).send({error})
+        }
+        
+    }
+
+    static async getProductsFilter(req, res){
+        /*
+            http://localhost:8080/api/product/filter?categoryId=2&brandId=1&priceMin=100&priceMax=1000
+        */
+        try {
+            const{
+                categoryId,
+                brandId,
+                priceMin,
+                priceMax
+            }=req.query
+            const where={}
+            where[Op.and]=[]
+            if (categoryId) {
+                where[Op.and].push({CategoryId:categoryId})
+            }
+            if(brandId){
+                where[Op.and].push({ManuFacturerId:brandId})
+            }
+            if(priceMin || priceMax){
+                where[Op.and].push({
+                    price:{
+                        [Op.between]:[priceMin, priceMax]
+                    }
+                })
+            }
+            const products=await Product.findAll({
+                attributes:["id", "name", "description", "price"],
+                include:[
+                    {
+                        model:Category, required:true, attributes:["id", "name"]
+                    },
+                    {
+                        model:Manufacturer, attributes:["id", "name"]
+                    },
+                    {
+                        model:ImgProduct, attributes:["LinkImg", "id"]
+                    }
+                ],
+                where:where
+                // where:{
+                //     [Op.and]:[
+                //         {ManuFacturerId:brandId},
+                //         {CategoryId:categoryId},
+                //     ],
+                //     price:{
+                //         [Op.between]:[priceMin, priceMax]
+                //     }
+
+                // }
+            })
+            
+            res.status(200).send(products)
+        } catch (error) {
+            console.log(error)
+            return res.status(500).send({error})
+        }
+        
     }
 
 
