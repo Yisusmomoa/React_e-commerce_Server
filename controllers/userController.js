@@ -7,6 +7,10 @@ class UserController {
     static async createUser(req, res){
         try {
             const {username, password, email}=req.body
+            const isEmailUsed=await User.findOne({
+                where:{email:email}
+            })
+            if(isEmailUsed)throw "Ya existe un usuario con ese email"
             const result=await User.create({username,password, email});
             res.status(201).send({
                 success:true,
@@ -14,7 +18,7 @@ class UserController {
                 result
             })
         } catch (error) {
-            return res.status(500).send({
+            return res.status(400).send({
                 success:false,
                 message:error
             })

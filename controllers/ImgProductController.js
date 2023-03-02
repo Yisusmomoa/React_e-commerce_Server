@@ -17,6 +17,7 @@ class imgProductController{
             const storageRef=ref(storage, `product_Imgs/IdProd_${idProd}/${file.originalname}`)
             const metaData={
                 contentType:file.mimetype
+                // contentType:'image/jpeg'
             }
             const resultado=await uploadBytesResumable(storageRef, file.buffer, metaData)
             const downloadUrl=await getDownloadURL(resultado.ref)
