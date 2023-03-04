@@ -39,11 +39,20 @@ User.init({
     username: {
         type: DataTypes.STRING(50),
         allowNull: false,
-
+        validate:{
+            notNull:{
+                msg:"Please enter a username"
+            }
+        }
     },
     password: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        validate:{
+            notNull:{
+                msg:"Please enter a password"
+            },
+        }
     },
     salt:{
         type:DataTypes.STRING
@@ -53,7 +62,12 @@ User.init({
         unique:true,
         allowNull:false,
         validate:{
-            isEmail:true
+            isEmail:true,
+            
+            notNull:{
+                msg:"Please enter a email"
+            },
+            
         }
     },
     role: {

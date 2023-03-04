@@ -2,15 +2,16 @@ import { verify } from "jsonwebtoken";
 import { generateToken } from "../config/token.js";
 import { User } from "../models/index.js";
 import bcrypt from 'bcrypt'
+import { Op } from "sequelize";
 
 class UserController {
     static async createUser(req, res){
         try {
             const {username, password, email}=req.body
-            const isEmailUsed=await User.findOne({
-                where:{email:email}
-            })
-            if(isEmailUsed)throw "Ya existe un usuario con ese email"
+            // const isEmailUsed=await User.findOne({
+            //     where:{email:email}
+            // })
+            // if(isEmailUsed)throw "email must be unique"
             const result=await User.create({username,password, email});
             res.status(201).send({
                 success:true,
@@ -20,7 +21,7 @@ class UserController {
         } catch (error) {
             return res.status(400).send({
                 success:false,
-                message:error
+                message:error.errors[0].message,
             })
         }
     }
@@ -60,10 +61,12 @@ class UserController {
         try {
             const {
                 email,
-                username,
                 password,
-                role
+                username,
+                role, 
             }=req.body
+            console.log("id", req.params.id)
+            console.log("req.file", req.file)
             const avatar=req.file
             const user=await User.findByPk(req.params.id)
             if(!user) throw "No se encontro el usuario"
@@ -122,8 +125,14 @@ class UserController {
         try {
             const {email, password}=req.body
             const results=await User.findOne({
-                where:{email}
+                where:{
+                    [Op.and]:[
+                        {email},
+                        {isActive:true}
+                    ]
+                }
             })
+            console.log(results)
             if(!results) throw "No se encontro el usuario"
 
             // mando la password que vien del body
@@ -148,7 +157,7 @@ class UserController {
             // console.log(req.cookies)
             res.status(200).send({message:"Usuario logeado", success:true})
         } catch (error) {
-            return res.status(500).send({
+            return res.status(400).send({
                 success:false,
                 message:error
             })
@@ -165,7 +174,7 @@ class UserController {
                 result:req.user
             })
         } catch (error) {
-            return res.status(404).send({
+            return res.status(400).send({
                 success:false,
                 message:error
             })
