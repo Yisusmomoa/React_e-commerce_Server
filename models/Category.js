@@ -12,7 +12,12 @@ Category.init({
         allowNull: false,
         unique:true,
     },
+    // createdDate:{
+    //     type:DataTypes.DATEONLY,
+    //     defaultValue:
+    // }
 }, {
+    // timestamps:false,
     sequelize: db,
     modelName: "Category"
 })

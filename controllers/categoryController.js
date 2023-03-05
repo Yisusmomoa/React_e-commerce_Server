@@ -1,11 +1,32 @@
+import { Sequelize } from "sequelize"
 import { Category } from "../models/index.js"
 
 class CategoryController {
     static getAllCategories(req, res) {
+        console.log("get all categories")
         Category.findAll({ 
-            attributes:["id", "name"]
+            attributes:["id", "name", 
+                "createdAt",[
+                Sequelize.fn(
+                    "DATE_FORMAT", 
+                    Sequelize.col("createdAt"), 
+                    "%d-%m-%Y %H:%i:%s", 
+                ),  
+                "createdAt",
+            ],
+             "updatedAt",[
+                Sequelize.fn(
+                    "DATE_FORMAT", 
+                    Sequelize.col("updatedAt"), 
+                    "%d-%m-%Y %H:%i:%s", 
+                ),  
+                "updatedAt",
+             ]
+            ],
+            order:Sequelize.col('id')
         })
             .then(results => {
+                let today=new Date()
                 if (results.length === 0) throw "No hay categorias para mostrar"
                 res.status(200).send({ success: true, message: "Categorias encontradas", results })
             }).catch(error => {
