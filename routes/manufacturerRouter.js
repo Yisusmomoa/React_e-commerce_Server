@@ -17,7 +17,7 @@ manufacturerRoutes.get("/:id", ManuFacturerController.getManufacturerById)
 manufacturerRoutes.use(authMe)
 manufacturerRoutes.use(isAdmin)
 manufacturerRoutes.post("/", fileUpload ,ManuFacturerController.createManufacturer)
-manufacturerRoutes.put("/:id", ManuFacturerController.updateManufacturer)
+manufacturerRoutes.put("/:id",fileUpload, ManuFacturerController.updateManufacturer)
 manufacturerRoutes.delete("/:id", ManuFacturerController.deleteManufacturer)
 
 export default manufacturerRoutes

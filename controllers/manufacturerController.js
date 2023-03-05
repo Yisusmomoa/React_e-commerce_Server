@@ -4,6 +4,7 @@ import { initializeApp } from "firebase/app";
 import {getDownloadURL, getStorage, 
     ref, uploadBytesResumable} from 'firebase/storage'
 import { firebaseConfig } from "../config/firebaseConfig.js";
+import { Sequelize } from "sequelize";
 // Initialize Firebase
 initializeApp(firebaseConfig);
 const storage=getStorage()
@@ -12,7 +13,25 @@ class ManuFacturerController {
     static async getAllManufacturer(req, res){
         try {
             const results=await Manufacturer.findAll({
-                attributes:["id", "name", "imgManuFacturer"]
+                attributes:["id", "name", "imgManuFacturer",
+                    "createdAt",[
+                        Sequelize.fn(
+                            "DATE_FORMAT", 
+                            Sequelize.col("createdAt"), 
+                            "%d-%m-%Y %H:%i:%s", 
+                        ),  
+                        "createdAt",
+                    ],
+                    "updatedAt",[
+                        Sequelize.fn(
+                            "DATE_FORMAT", 
+                            Sequelize.col("updatedAt"), 
+                            "%d-%m-%Y %H:%i:%s", 
+                        ),  
+                        "updatedAt",
+                    ]
+                ],
+                order:Sequelize.col('id')
             })
             res.status(200).send(results)
         } catch (error) {
@@ -72,15 +91,30 @@ class ManuFacturerController {
     }
     static async updateManufacturer(req, res){
         try {
-            const {
-                name,
-                imgManuFacturer
-            }=req.body
-            const result=await Manufacturer.findByPk(req.params.id)
+            console.log(req.body)
+            const {name}=req.body
+            const id=req.params.id
+            console.log("name brand", name)
+            console.log("id brand", id)
+            const imgBrand=req.file
+
+            if(!name) throw "Llena los campos"
+
+            const result=await Manufacturer.findByPk(id)
             if(!result) throw "No se encontro esa fabrica"
+
             result.name=name||result.name
-            result.imgManuFacturer=imgManuFacturer|| result.imgManuFacturer
-            await result.save
+
+            if(imgBrand){
+                const storageRef=ref(storage, `brand_Imgs/Brand_${name}/${imgBrand.originalname}`)
+                const metaData={
+                    contentType:imgBrand.mimetype
+                }
+                const resultado=await uploadBytesResumable(storageRef, imgBrand.buffer, metaData)
+                const downloadUrl=await getDownloadURL(resultado.ref)
+                result.imgManuFacturer=downloadUrl|| result.imgManuFacturer
+            }
+            await result.save()
             res.status(200).send({
                 message:"marca editada con exito",
                 result
