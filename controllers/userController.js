@@ -171,7 +171,7 @@ class UserController {
                     ]
                 }
             })
-            console.log(results)
+            // console.log("results login", results)
             if(!results) throw "No se encontro el usuario"
 
             // mando la password que vien del body
@@ -186,11 +186,12 @@ class UserController {
                 username:results.username,
                 imgProfile:results.imgProfile,
                 role:results.role,
+                rolId:results.RolId,
                 imgProfile:results.imgProfile
             }
             const token=generateToken(payload)
             // este token tiene encriptada/hashaeada la información que le mande al payload
-            console.log("token login controller", token)
+            // console.log("token login controller", token)
             // las cookies tiene el token
             res.cookie("token", token)
             // console.log(req.cookies)
@@ -205,7 +206,7 @@ class UserController {
 
     // se encargada de comprobar la cokkie/token
     static async me(req, res){
-        console.log("me", req.user)
+        // console.log("me", req.user)
         try {
             res.status(200).send({
                 success:true,
@@ -222,7 +223,7 @@ class UserController {
 
     static async logOut(req, res){
         try {
-            console.log("logout")
+            // console.log("logout")
             res.clearCookie("token");
             res.send(204)
         } catch (error) {
