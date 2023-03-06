@@ -123,6 +123,26 @@ class UserController {
 
     static async deleteUser(req, res){
         try {
+            console.log(req.params.id)
+            const user=await User.findByPk(req.params.id)
+            if(!user) throw "Usuario no encontrado"
+            console.log(user)
+            user.isActive=!user.isActive
+            await user.save()
+            res.status(200).send({
+                success:true,
+                user
+            })
+        } catch (error) {
+            return res.status(500).send({
+                success:false,
+                message:error
+            })
+        }
+    }
+
+    static async activateUser(req, res){
+        try {
             const user=await User.findByPk(req.user.id)
             if(!user) throw "Usuario no encontrado"
             console.log(user)
