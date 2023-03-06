@@ -91,20 +91,21 @@ class ManuFacturerController {
     }
     static async updateManufacturer(req, res){
         try {
-            console.log(req.body)
+            //campos y id 
             const {name}=req.body
             const id=req.params.id
-            console.log("name brand", name)
-            console.log("id brand", id)
             const imgBrand=req.file
+            //campos y id 
 
-            if(!name) throw "Llena los campos"
-
+            // lo busca y si está lo edito, sino no hago nada
             const result=await Manufacturer.findByPk(id)
             if(!result) throw "No se encontro esa fabrica"
 
+            // si el valor viene vacio o no lo mandan, dejo el que estaba
             result.name=name||result.name
 
+            // proceso de subida de imagen a firebase y update de la ruta de la imagen en la db
+            
             if(imgBrand){
                 const storageRef=ref(storage, `brand_Imgs/Brand_${name}/${imgBrand.originalname}`)
                 const metaData={
@@ -112,7 +113,7 @@ class ManuFacturerController {
                 }
                 const resultado=await uploadBytesResumable(storageRef, imgBrand.buffer, metaData)
                 const downloadUrl=await getDownloadURL(resultado.ref)
-                result.imgManuFacturer=downloadUrl|| result.imgManuFacturer
+                result.imgManuFacturer=downloadUrl || result.imgManuFacturer
             }
             await result.save()
             res.status(200).send({
