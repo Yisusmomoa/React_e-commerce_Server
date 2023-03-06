@@ -116,17 +116,23 @@ class ProductController{
     }
 
     static async updateproduct(req, res){
-        const {name, price, CategoryId, description, ManuFacturerId}=req.body
+        const {name, price, CategoryId, 
+            description, ManuFacturerId}=req.body
+        console.log("body", req.body)
+        console.log("price", price)
+        const files=req.files
         try {
             const product=await Product.findByPk(req.params.id)
+            
             if(!product) throw "No se encontro el producto"
             
             product.name=name || product.name
-            product.price=price || product.price
+            if(price[0]!=='') product.price= price
+            
             product.CategoryId=CategoryId || product.CategoryId
             product.description=description || product.description
             product.ManuFacturerId=ManuFacturerId|| product.ManuFacturerId
-            product.save()
+            await product.save()
 
             res.status(200).send(product)
         } catch (error) {
