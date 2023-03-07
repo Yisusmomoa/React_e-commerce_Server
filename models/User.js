@@ -19,7 +19,7 @@ class User extends Model {
     async validatePassword(password ){
         const passwordHash=await this.hashAuth(password,
             this.salt)
-        console.log(passwordHash)
+        // console.log(passwordHash)
         // se compara con el que ya está
        return passwordHash===this.password
     }
@@ -90,12 +90,12 @@ User.init({
 // llamamos a la función beforeCreate
 // y llamamos la funcion genSaltes una función asincrona
 User.beforeCreate(async (user, options)=>{
-    console.log(user, options)
+    // console.log(user, options)
     // salt es un código que viene hasheado que vamos a acoplar a nuestro password
     // un numero random
     // me genera un numero aleatoro
     const salt=await bcrypt.genSalt() //esto me regresa una promesa
-    console.log(salt)
+    // console.log(salt)
     // accedemos al salt del user y lo igualamos al salt que acabamos de generar
     user.salt=salt
 

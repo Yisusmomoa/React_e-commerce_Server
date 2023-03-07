@@ -85,8 +85,6 @@ class UserController {
                 role,
                 rolId
             }=req.body
-            console.log("id", req.params.id)
-            console.log("req.file", req.file)
             const avatar=req.file
             const user=await User.findByPk(req.params.id)
             if(!user) throw "No se encontro el usuario"
@@ -96,7 +94,11 @@ class UserController {
             }
             user.email=email||user.email
             user.username=username|| user.username
-            user.password=password || user.password
+            if(password){
+                const salt=user.salt
+                const newPassword=await user.hashAuth(password, salt)
+                user.password=newPassword
+            }
             user.role=role|| user.role
             user.RolId=rolId|| user.RolId
             // user.profile=downloadUrl||user.profile
@@ -134,8 +136,6 @@ class UserController {
                 role,
                 rolId
             }=req.body
-            console.log("role", role)
-            console.log("rolId", rolId)
 
             const user=await User.findByPk(req.params.id)
             if(!user) throw "No se encontro el usuario"
