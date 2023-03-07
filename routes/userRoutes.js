@@ -26,6 +26,7 @@ userRoutes.delete("/:id", UserController.deleteUser)
 
 userRoutes.use(isAdmin)
 userRoutes.get("/:id", UserController.getUserById)
+userRoutes.put("/admin/users/:id",  UserController.updateUserAdmin)
 userRoutes.get("/", UserController.getAllUser)
 
 export default userRoutes

@@ -31,7 +31,7 @@ class UserController {
         try {
             const users=await User.findAll({
                 attributes:["id", "username","isActive", 
-                    "email", "role", "imgProfile",
+                    "email", "role", "imgProfile", "RolId",
                     "createdAt",[
                         Sequelize.fn(
                             "DATE_FORMAT", 
@@ -64,7 +64,7 @@ class UserController {
         try {
             const user=await User.findOne({
                 where:{id:req.params.id},
-                attributes:["id", "username","isActive", "email", "role", "imgProfile"]
+                attributes:["id", "username", "email", "role", "RolId", "imgProfile"]
             })
             if(!user) throw "No se encontro el usuario"
             res.status(200).send(user)
@@ -82,7 +82,8 @@ class UserController {
                 email,
                 password,
                 username,
-                role, 
+                role,
+                rolId
             }=req.body
             console.log("id", req.params.id)
             console.log("req.file", req.file)
@@ -96,18 +97,56 @@ class UserController {
             user.email=email||user.email
             user.username=username|| user.username
             user.password=password || user.password
+            user.role=role|| user.role
+            user.RolId=rolId|| user.RolId
             // user.profile=downloadUrl||user.profile
             // user.role=role || user.role
-            user.save()
+            await user.save()
             const payload={
                 id:user.id,
                 email:user.email,
                 username:user.username,
                 imgProfile:user.imgProfile,
                 role:user.role,
+                rolId:user.RolId,
             }
             const token=generateToken(payload)
             res.cookie("token", token)
+            res.status(200).send({
+                success:true,
+                message:"Usuario editado con exito",
+                user
+            })
+        } catch (error) {
+            return res.status(500).send({
+                success:false,
+                message:error
+            })
+        }
+    }
+
+    static async updateUserAdmin(req, res){
+        try {
+            const {
+                email,
+                password,
+                username,
+                role,
+                rolId
+            }=req.body
+            console.log("role", role)
+            console.log("rolId", rolId)
+
+            const user=await User.findByPk(req.params.id)
+            if(!user) throw "No se encontro el usuario"
+
+            user.email=email||user.email
+            user.username=username|| user.username
+            user.password=password || user.password
+            user.role=role|| user.role
+            user.RolId=rolId|| user.RolId
+
+            await user.save()
             res.status(200).send({
                 success:true,
                 message:"Usuario editado con exito",

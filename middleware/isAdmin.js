@@ -1,9 +1,10 @@
 // middleware para validar que eres admin
 
 const isAdmin=(req, res, next)=>{
-    const {role}=req.user
+    // const {role}=req.user
+    const {rolId}=req.user
     // objeto que creamos en authme
-    if(role==="admin"){
+    if(rolId===1){
         next()
     }
     else{
