@@ -7,6 +7,7 @@ import fileUpload from "../middleware/fileUpload.js";
 const productRoutes=express.Router()
 
 productRoutes.get("/",ProductController.getAllProducts)
+productRoutes.get("/pagination",ProductController.getPaginationProducts)
 productRoutes.get("/filter", ProductController.getProductsFilter)
 productRoutes.get("/:id",ProductController.getOneProductById)
 productRoutes.get("/category/:id", ProductController.getProductsByCategory)

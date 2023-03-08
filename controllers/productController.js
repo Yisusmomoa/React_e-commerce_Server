@@ -132,6 +132,9 @@ class ProductController{
             product.CategoryId=CategoryId || product.CategoryId
             product.description=description || product.description
             product.ManuFacturerId=ManuFacturerId|| product.ManuFacturerId
+            if(files){
+                if(!await imgProductController.addImagesProduct(req.params.id, files)) throw "Error al subir las imagenes del producto"
+            }
             await product.save()
 
             res.status(200).send(product)
@@ -261,6 +264,41 @@ class ProductController{
             return res.status(500).send({error})
         }
         
+    }
+
+    static async getPaginationProducts(req, res){
+        // const {page, size}=req.query;
+        const pageAsNumber=Number.parseInt(req.query.page);
+        const sizeAsNumber=Number.parseInt(req.query.size);
+        let page=0, size=10;
+        if(!Number.isNaN(pageAsNumber) && pageAsNumber>0){
+            page=pageAsNumber
+        }
+        if(!Number.isNaN(sizeAsNumber) && sizeAsNumber>0){
+            size=sizeAsNumber
+        }
+        try {
+            const products=await Product.findAll({
+                
+                attributes:["id", "name", "description", "price",],
+                limit:size,
+                offset:page*size,
+                // subQuery:false,
+                order:['id'],
+                include:[
+                    {
+                        model:ImgProduct, attributes:["LinkImg", "id"]
+                    }
+                ],
+                
+            })
+            res.status(200).send({
+                count:products.length,
+                products,
+            })
+        } catch (error) {
+            
+        }
     }
 
 
