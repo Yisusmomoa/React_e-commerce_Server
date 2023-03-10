@@ -38,7 +38,9 @@ class imgProductController{
 
     static async deleteImgProduct(req, res){
         const {idImg, idProd}=req.body
-        console.log(idImg, idProd)
+        console.log("🚀 ~ file: ImgProductController.js:41 ~ imgProductController ~ deleteImgProduct ~ idProd:", idProd)
+        console.log("🚀 ~ file: ImgProductController.js:41 ~ imgProductController ~ deleteImgProduct ~ idImg:", idImg)
+        
         try {
             const result=await ImgProduct.destroy({
                 where:{
@@ -55,6 +57,7 @@ class imgProductController{
             return res.status(500).send({message:error})
         }
     }
+    
 }
 
 export default imgProductController

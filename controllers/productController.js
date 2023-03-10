@@ -301,6 +301,27 @@ class ProductController{
         }
     }
 
+    static async deleteImgProduct(req, res){
+        const {idImg, idProd}=req.body
+        console.log("🚀 ~ file: productController.js:306 ~ ProductController ~ deleteImgProduct ~ idProd:", idProd)
+        console.log("🚀 ~ file: productController.js:306 ~ ProductController ~ deleteImgProduct ~ idImg:", idImg)
+        
+        try {
+            const result=await ImgProduct.destroy({
+                where:{
+                    id:idImg,
+                    ProductId:idProd
+                }
+            })
+            if(!result) throw "Error al momento de eliminar la imagen"
+            res.status(200).send({
+                message:"image deleted successfully",
+                success:true
+            })
+        } catch (error) {
+            return res.status(500).send({message:error})
+        }
+    }
 
 }
 
