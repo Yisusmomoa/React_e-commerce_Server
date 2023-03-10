@@ -3,6 +3,7 @@ import ProductController from "../controllers/ProductController.js"
 import authMe from "../middleware/AuthMe.js"
 import isAdmin from "../middleware/isAdmin.js"
 import fileUpload from "../middleware/fileUpload.js";
+import imgProductController from "../controllers/ImgProductController.js";
 
 const productRoutes=express.Router()
 
@@ -18,6 +19,7 @@ productRoutes.use(authMe)
 productRoutes.use(isAdmin)
 productRoutes.post("/",fileUpload, ProductController.createProduct)
 productRoutes.put("/:id",fileUpload, ProductController.updateproduct)
+productRoutes.post("/deletImg", imgProductController.deleteImgProduct)
 productRoutes.delete("/:id", ProductController.deleteProduct)
 
 export default productRoutes

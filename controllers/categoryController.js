@@ -35,6 +35,7 @@ class CategoryController {
     }
     static async createCategory(req, res) {
         try {
+            if(!req.body) throw "Llena los campos"
             const results = await Category.create(req.body)
             res.status(200).send({ success: true, message: "Categorias creada con exito", results })
         } catch (error) {
@@ -57,9 +58,10 @@ class CategoryController {
     }
     static async updateCategory(req, res) {
         try {
+            const {name}=req.body
             const category=await Category.findByPk(req.params.id)
             if(!category) throw "No se encontro la categoría"
-            category.name=req.body.name
+            category.name=name || category.name
             category.save()
             res.status(200).send({success:true,
                 message: "Categoria actualizada con exito",

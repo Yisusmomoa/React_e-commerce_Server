@@ -4,6 +4,7 @@ import { initializeApp } from "firebase/app";
 import {getDownloadURL, getStorage, ref, uploadBytesResumable} from 'firebase/storage'
 
 import { firebaseConfig } from "../config/firebaseConfig.js";
+import { Sequelize } from "sequelize";
 
 // Initialize Firebase
 initializeApp(firebaseConfig);
@@ -33,6 +34,26 @@ class imgProductController{
     // para el update de la imagen, usar el id del producto y luego el id de la imagen
     static async updateImgProduct(req,res){
         
+    }
+
+    static async deleteImgProduct(req, res){
+        const {idImg, idProd}=req.body
+        console.log(idImg, idProd)
+        try {
+            const result=await ImgProduct.destroy({
+                where:{
+                    id:idImg,
+                    ProductId:idProd
+                }
+            })
+            if(!result) throw "Error al momento de eliminar la imagen"
+            res.status(200).send({
+                message:"image deleted successfully",
+                success:true
+            })
+        } catch (error) {
+            return res.status(500).send({message:error})
+        }
     }
 }
 
