@@ -118,9 +118,8 @@ class ProductController{
     static async updateproduct(req, res){
         const {name, price, CategoryId, 
             description, ManuFacturerId}=req.body
-        console.log("body", req.body)
-        console.log("price", price)
         const files=req.files
+        
         try {
             const product=await Product.findByPk(req.params.id)
             

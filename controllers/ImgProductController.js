@@ -78,7 +78,7 @@ class imgProductController{
             return res.status(500).send({message:error})
         }
     }
-    
+        
 }
 
 export default imgProductController
