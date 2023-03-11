@@ -33,7 +33,28 @@ class imgProductController{
 
     // para el update de la imagen, usar el id del producto y luego el id de la imagen
     static async updateImgProduct(req,res){
+        const {idImg, idProd}=req.body
+        console.log("🚀 ~ file: ImgProductController.js:37 ~ imgProductController ~ updateImgProduct ~ idProd:", idProd)
+        console.log("🚀 ~ file: ImgProductController.js:37 ~ imgProductController ~ updateImgProduct ~ idImg:", idImg)
+        const img=req.file
         
+        try {
+            if(!img)throw "Sube una imagen >:c"
+            const storageRef=ref(storage, `product_Imgs/IdProd_${idProd}/${img.originalname}`)
+            const metaData={
+                contentType:img.mimetype
+            }
+            const resultado=await uploadBytesResumable(storageRef, img.buffer, metaData)
+            const downloadUrl=await getDownloadURL(resultado.ref)
+            const result=await ImgProduct.update({LinkImg:downloadUrl},{where:{id:idImg}})
+            if(result!=1) throw "Error al momento de actualizar la imagen"
+            res.status(200).send({
+                message:"image deleted successfully",
+                success:true
+            })
+        } catch (error) {
+            return res.status(500).send({message:error})
+        }
     }
 
     static async deleteImgProduct(req, res){
