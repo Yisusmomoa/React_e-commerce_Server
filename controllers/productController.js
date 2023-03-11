@@ -118,6 +118,7 @@ class ProductController{
     static async updateproduct(req, res){
         const {name, price, CategoryId, 
             description, ManuFacturerId}=req.body
+        console.log("🚀 ~ file: ProductController.js:121 ~ ProductController ~ updateproduct ~ req.body:", req.body)
         const files=req.files
         
         try {
@@ -126,8 +127,9 @@ class ProductController{
             if(!product) throw "No se encontro el producto"
             
             product.name=name || product.name
-            if(price[0]!=='') product.price= price
-            
+            if(price){
+                if(price[0]!=='') product.price= price
+            }
             product.CategoryId=CategoryId || product.CategoryId
             product.description=description || product.description
             product.ManuFacturerId=ManuFacturerId|| product.ManuFacturerId
