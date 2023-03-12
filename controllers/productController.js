@@ -293,8 +293,9 @@ class ProductController{
                 ],
                 
             })
+            const quantityProds=await Product.count();
             res.status(200).send({
-                count:products.length,
+                count:Number.parseInt(quantityProds),
                 products,
             })
         } catch (error) {
