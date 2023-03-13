@@ -7,6 +7,7 @@ import Product from "./Product.js";
 import Rol from './Rol.js';
 import User from "./User.js";
 import WishList from './WishList.js';
+import ShopCart from './ShopCart.js';
 
 // categorias de los productos
 Category.hasMany(Product)
@@ -35,6 +36,8 @@ Product.belongsToMany(User, {through:WishList})
 // Details buy
 Buy.belongsToMany(Product, {through:DetailBuy})
 Product.belongsToMany(Buy, {through:DetailBuy})
+
+//Shop cart
 
 
 export { Category, Product, User, Manufacturer, Buy, DetailBuy, ImgProduct,Rol,WishList }
