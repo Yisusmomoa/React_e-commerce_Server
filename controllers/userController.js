@@ -216,7 +216,7 @@ class UserController {
             // mando la password que vien del body
             const isEqual=await results.validatePassword(password)
            
-            if(!isEqual) throw "Error en la contraseña"
+            if(!isEqual) throw "Error en la contraseña o usuario"
             // le mandamos una key, eswta es la información que va a
             // almacenar el token
             const payload={
@@ -262,7 +262,7 @@ class UserController {
 
     static async logOut(req, res){
         try {
-            // console.log("logout")
+            console.log("🚀 ~ file: userController.js:264 ~ UserController ~ logOut ~ req:", req)
             res.clearCookie("token");
             res.send(204)
         } catch (error) {
