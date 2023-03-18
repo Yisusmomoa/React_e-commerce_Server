@@ -262,7 +262,7 @@ class UserController {
 
     static async logOut(req, res){
         try {
-            console.log("🚀 ~ file: userController.js:264 ~ UserController ~ logOut ~ req:", req)
+            // console.log("🚀 ~ file: userController.js:264 ~ UserController ~ logOut ~ req:", req)
             res.clearCookie("token");
             res.send(204)
         } catch (error) {

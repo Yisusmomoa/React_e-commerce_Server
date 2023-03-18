@@ -14,7 +14,7 @@ const authMe=(req, res, next)=>{
     } catch (error) {
         return res.status(500).send({
             success:false,
-            message:error
+            message:error.name
         })
     }
 }

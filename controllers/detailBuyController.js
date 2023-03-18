@@ -6,8 +6,8 @@ class detailBuyController{
         // convertir a un nuevo array con una nueva estrictura
         const productsInsert=products.map(product=>{
             return {
-                ProductId:product.idProduct,
-                cantidad:product.cantidad,
+                ProductId:product.id,
+                cantidad:product.amount,
                 BuyId:buyId,
                 totalProd:product.totalProd
             }
