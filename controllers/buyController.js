@@ -1,4 +1,4 @@
-import { where } from "sequelize";
+import { Sequelize, where } from "sequelize";
 import { Buy, Product, DetailBuy } from "../models/index.js";
 import detailBuyController from "./detailBuyController.js";
 
@@ -7,8 +7,19 @@ class BuyController{
         try {
           const idUser=req.user.id
           if(idUser){
-              const results=await Buy.findAll({
-                    attributes:["id", "subTotal", "superTotal"],
+            const results=await Buy.findAll({
+                    attributes:["id", 
+                        "subTotal", 
+                        "superTotal", 
+                        "createdAt",[
+                            Sequelize.fn(
+                                "DATE_FORMAT", 
+                                Sequelize.col("Buy.createdAt"), 
+                                "%d-%m-%Y", 
+                            ),  
+                            "createdAt",
+                        ]
+                    ],
                     where:{UserId:idUser},
                     include:[
                         {
