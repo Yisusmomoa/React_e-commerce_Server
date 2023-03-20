@@ -34,8 +34,12 @@ class BuyController{
                             //     }
                             // ]
                         }
+                    ],
+                    order:[
+                        ["id", "DESC"]
                     ]
               })
+              console.log("🚀 ~ file: buyController.js:43 ~ BuyController ~ getAllBuysFromUser ~ results:", results)
               if(!results) throw "No haz realizado compras"
               res.status(200).send(results)
           }
@@ -102,8 +106,35 @@ class BuyController{
             const idUser=req.user.id
             const idBuy=req.params.id
             const results=await Buy.findOne({
+                attributes:["id", 
+                        "subTotal", 
+                        "superTotal", 
+                        "createdAt",[
+                            Sequelize.fn(
+                                "DATE_FORMAT", 
+                                Sequelize.col("Buy.createdAt"), 
+                                "%d-%m-%Y", 
+                            ),  
+                            "createdAt",
+                        ]
+                ],
+                include:[
+                    {
+                        model:Product,
+                        attributes:["id", "name", "description", "price"],
+                        // include:[
+                        //     {
+                        //         model:Category, required:true, attributes:["id", "name"]
+                        //     },
+                        //     {
+                        //         model:Manufacturer, attributes:["id", "name"]
+                        //     }
+                        // ]
+                    }
+                ],
                 where:{id:idBuy, UserId:idUser}
             })
+            console.log("🚀 ~ file: buyController.js:111 ~ BuyController ~ getBuyByIdFromUser ~ results:", results)
             if(!results) throw "No se encontro la compra"
             res.status(200).send(results)
         } catch (error) {

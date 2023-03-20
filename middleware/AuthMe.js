@@ -8,7 +8,7 @@ const authMe=(req, res, next)=>{
         if(!data) throw "no se encontro el usuario"
         // me muestra un object data que lleva dentro un payload
         // creo un objeto llamado user y mandarlo al req
-        console.log(data)
+        console.log("🚀 ~ file: AuthMe.js:20 ~ authMe ~ data:", data)
         req.user=data
         next()
     } catch (error) {
@@ -17,6 +17,7 @@ const authMe=(req, res, next)=>{
             message:error.name
         })
     }
+        
 }
 
 export default authMe
