@@ -15,30 +15,13 @@ El sitio web de Tech Zone es fácil de navegar y tiene un diseño moderno y atra
 
 **Server:** Node, Express, Mysql, Jwt, Sequelize, 
 
-## Paleta de colores
-
-| Color             | Hex                                                                |
-| ----------------- | ------------------------------------------------------------------ |
-| Color fondo | ![#F9F7F7](https://via.placeholder.com/10/F9F7F7?text=+) #F9F7F7 |
-| Color letras | ![#61717a](https://via.placeholder.com/10/61717a?text=+) #61717a |
-| Color letras hover | ![#1B262C](https://via.placeholder.com/10/1B262C?text=+) #1B262C |
-| Color boton  | ![#3F72AF](https://via.placeholder.com/10/3F72AF?text=+) #3F72AF |
-| Color boton hover | ![#112D4E](https://via.placeholder.com/10/112D4E?text=+) #112D4E |
-| Color letras aux  | ![#DBE2EF](https://via.placeholder.com/10/DBE2EF?text=+) #DBE2EF |
-
-
-
-## Demo
-
-Insert gif or link to demo
-
 
 ## Run Locally
 
 Clone the project
 
 ```bash
-  git clone https://link-to-project
+  git clone https://github.com/Yisusmomoa/React_e-commerce_Server.git
 ```
 
 Go to the project directory
@@ -60,18 +43,42 @@ Start the server
 ```
 
 
+## Authors
+
+- [@Yisusmomoa](https://github.com/Yisusmomoa)
+
+
 ## Environment Variables
 
 To run this project, you will need to add the following environment variables to your .env file
 
+`API_PORT`
+
+`DB_PORT`
+
+`DB_NAME`
+
+`DB_USERNAME`
+
+`DB_PASSWORD`
+
+`DB_DIALECT`
+
+`DB_HOST`
+
+`SECRET`
+
 `API_KEY`
 
-`ANOTHER_API_KEY`
+`AUTH_DOMAIN`
 
+`PROJECT_ID`
 
-## Authors
+`STORAGE_BUCKET`
 
-- [@Yisusmomoa](https://github.com/Yisusmomoa)
-- [@DaLunaF](https://github.com/DaLunaF)
-- [@DaLunaF](https://github.com/DaLunaF)
+`MESSAGING_SENDER_ID`
+
+`APP_ID`
+
+`MEASUREMENT_ID`
 
