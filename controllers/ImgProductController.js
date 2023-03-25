@@ -34,8 +34,6 @@ class imgProductController{
     // para el update de la imagen, usar el id del producto y luego el id de la imagen
     static async updateImgProduct(req,res){
         const {idImg, idProd}=req.body
-        console.log("🚀 ~ file: ImgProductController.js:37 ~ imgProductController ~ updateImgProduct ~ idProd:", idProd)
-        console.log("🚀 ~ file: ImgProductController.js:37 ~ imgProductController ~ updateImgProduct ~ idImg:", idImg)
         const img=req.file
         
         try {
@@ -59,8 +57,6 @@ class imgProductController{
 
     static async deleteImgProduct(req, res){
         const {idImg, idProd}=req.body
-        console.log("🚀 ~ file: ImgProductController.js:41 ~ imgProductController ~ deleteImgProduct ~ idProd:", idProd)
-        console.log("🚀 ~ file: ImgProductController.js:41 ~ imgProductController ~ deleteImgProduct ~ idImg:", idImg)
         
         try {
             const result=await ImgProduct.destroy({

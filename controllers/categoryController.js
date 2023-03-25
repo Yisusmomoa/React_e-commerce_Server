@@ -3,7 +3,6 @@ import { Category } from "../models/index.js"
 
 class CategoryController {
     static getAllCategories(req, res) {
-        console.log("get all categories")
         Category.findAll({ 
             attributes:["id", "name", 
                 "createdAt",[

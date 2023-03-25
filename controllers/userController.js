@@ -162,10 +162,8 @@ class UserController {
 
     static async deleteUser(req, res){
         try {
-            console.log(req.params.id)
             const user=await User.findByPk(req.params.id)
             if(!user) throw "Usuario no encontrado"
-            console.log(user)
             user.isActive=!user.isActive
             await user.save()
             res.status(200).send({
@@ -184,7 +182,6 @@ class UserController {
         try {
             const user=await User.findByPk(req.user.id)
             if(!user) throw "Usuario no encontrado"
-            console.log(user)
             user.isActive=false
             await user.save()
             res.status(200).send({
@@ -210,7 +207,6 @@ class UserController {
                     ]
                 }
             })
-            // console.log("results login", results)
             if(!results) throw "No se encontro el usuario"
 
             // mando la password que vien del body
@@ -229,11 +225,7 @@ class UserController {
                 imgProfile:results.imgProfile
             }
             const token=generateToken(payload)
-            // este token tiene encriptada/hashaeada la información que le mande al payload
-            // console.log("token login controller", token)
-            // las cookies tiene el token
             res.cookie("token", token)
-            // console.log(req.cookies)
             res.status(200).send({message:"Usuario logeado", success:true})
         } catch (error) {
             return res.status(400).send({
@@ -243,9 +235,8 @@ class UserController {
         }
     }
 
-    // se encargada de comprobar la cokkie/token
+    // encargada de comprobar la cokkie/token
     static async me(req, res){
-        // console.log("me", req.user)
         try {
             res.status(200).send({
                 success:true,
@@ -262,7 +253,6 @@ class UserController {
 
     static async logOut(req, res){
         try {
-            // console.log("🚀 ~ file: userController.js:264 ~ UserController ~ logOut ~ req:", req)
             res.clearCookie("token");
             res.send(204)
         } catch (error) {

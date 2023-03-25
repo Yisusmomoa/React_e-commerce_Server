@@ -12,16 +12,11 @@ Category.init({
         allowNull: false,
         unique:true,
     },
-    // createdDate:{
-    //     type:DataTypes.DATEONLY,
-    //     defaultValue:
-    // }
 }, {
     // timestamps:false,
     sequelize: db,
     modelName: "Category"
 })
-// console.log(Category === db.models.Category); 
 
 export default Category
 

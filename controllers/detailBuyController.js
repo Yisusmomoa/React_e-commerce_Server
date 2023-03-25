@@ -12,7 +12,6 @@ class detailBuyController{
                 totalProd:product.totalProd
             }
         })
-        // console.log("productsInsert", productsInsert)
         // ProductId, cantidad, totalProd
         // BuyId
         const result=await DetailBuy.bulkCreate(productsInsert)

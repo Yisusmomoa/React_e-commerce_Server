@@ -67,7 +67,6 @@ class ManuFacturerController {
                 attributes:["id","name", "imgManuFacturer"],
                 where:{id:req.params.id}
             })
-            console.log("result ", result)
             if(!result) throw "No se encontro esa marca"
             res.status(200).send(result)
         } catch (error) {

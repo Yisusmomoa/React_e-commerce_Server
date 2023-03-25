@@ -20,6 +20,5 @@ ManuFacturer.init({
     sequelize: db,
     modelName: "ManuFacturer"
 })
-// console.log(Category === db.models.Category); 
 
 export default ManuFacturer

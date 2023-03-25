@@ -19,6 +19,5 @@ DetailBuy.init({
     sequelize: db,
     modelName: "DetailBuy"
 })
-// console.log(Category === db.models.Category); 
 
 export default DetailBuy

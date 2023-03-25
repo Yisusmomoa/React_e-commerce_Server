@@ -10,12 +10,10 @@ export const generateToken=(payload)=>{
         payload, //la informaicón del usuario
         SECRET, //secret una palabra secreta, que toma como base para empezar a hashear
         { expiresIn: '1h' });
-        console.log("token, generate token",token)
     return token;
 }
 
 // verificar el token
 export const verify=(token)=>{
-    console.log("verify token", token)
     return jwt.verify(token, SECRET)
 }

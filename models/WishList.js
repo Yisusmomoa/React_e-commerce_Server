@@ -28,7 +28,6 @@ WishList.init({
     sequelize: db,
     modelName: "WishList"
 })
-// console.log(Category === db.models.Category); 
 
 export default WishList
 

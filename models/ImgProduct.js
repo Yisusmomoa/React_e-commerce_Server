@@ -15,6 +15,5 @@ ImgProduct.init({
     sequelize: db,
     modelName: "ImgProduct"
 })
-// console.log(Category === db.models.Category); 
 
 export default ImgProduct

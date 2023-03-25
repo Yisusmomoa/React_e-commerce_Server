@@ -39,7 +39,6 @@ class BuyController{
                         ["id", "DESC"]
                     ]
               })
-              console.log("🚀 ~ file: buyController.js:43 ~ BuyController ~ getAllBuysFromUser ~ results:", results)
               if(!results) throw "No haz realizado compras"
               res.status(200).send(results)
           }
@@ -55,11 +54,8 @@ class BuyController{
         try {
             const idUser=req.user.id
             if(idUser){
-                console.log("🚀 ~ file: buyController.js:43 ~ BuyController ~ makeBuy ~ idUser:", idUser)
                 // recibir un array con los productos y calcular el total y subtotal
                 const products=req.body
-                console.log("🚀 ~ file: buyController.js:46 ~ BuyController ~ makeBuy ~ products:", products)
-                
                 // obtengo el precio de cada producto
                 // convertir en función de la clase products?
                 for (let index = 0; index < products.length; index++) {
@@ -69,7 +65,6 @@ class BuyController{
                     products[index].totalProd=product.price*products[index].amount
                 }
                 const subTotal=products.reduce((acc, el)=>parseFloat(acc)+parseFloat(el.price)*el.amount, 0)
-                // console.log("Subtotal", subTotal)
                 const superTotal=subTotal+subTotal*0.16
     
                 const result=await Buy.create({
@@ -78,7 +73,6 @@ class BuyController{
                     superTotal
                 })
                 if(!result) throw "Error, al momento de realizar la compra"
-                // console.log("idCompra",result.id)
     
                 if(!detailBuyController.addProductsToDetailBuy(products, result.id)) throw "Error al momento de realizar la compra"
     
@@ -134,7 +128,6 @@ class BuyController{
                 ],
                 where:{id:idBuy, UserId:idUser}
             })
-            console.log("🚀 ~ file: buyController.js:111 ~ BuyController ~ getBuyByIdFromUser ~ results:", results)
             if(!results) throw "No se encontro la compra"
             res.status(200).send(results)
         } catch (error) {

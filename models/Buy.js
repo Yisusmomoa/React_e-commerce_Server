@@ -17,6 +17,5 @@ Buy.init({
     sequelize: db,
     modelName: "Buy"
 })
-// console.log(Category === db.models.Category); 
 
 export default Buy

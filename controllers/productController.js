@@ -43,17 +43,19 @@ class ProductController{
             })
             res.status(200).send(products)
         } catch (error) {
-            console.log(error)
             return res.status(500).send({error})
         }
     }
 
     static async createProduct(req, res){
         const {name, price, CategoryId, description,ManuFacturerId }=req.body
+        const files=req.files
         // recibir la imagen y subirla a firebase/drive
         // luego obtener la ruta y guadrar la ruta
         // se pueden guardar maximo 3 imagenes por producto
         try {
+            if(!(name && price && CategoryId && description && ManuFacturerId && files))throw "no puedes dejar campos vacios"
+
             const result=await Product.create({
                 name:name,
                 price:price,
@@ -62,9 +64,8 @@ class ProductController{
                 ManuFacturerId:ManuFacturerId
             })
             if(!result) throw "Error, no se pudo dar de alta el producto"
-            // se podrá hacer que funcione como middleware
             const idProd=result.id
-            const files=req.files
+          
             if(!await imgProductController.addImagesProduct(idProd, files)) throw "Error al subir las imagenes del producto"
             res.status(201).send({result, message:"Producto creado con exito"})
         } catch (error) {
@@ -118,9 +119,7 @@ class ProductController{
     static async updateproduct(req, res){
         const {name, price, CategoryId, 
             description, ManuFacturerId}=req.body
-        console.log("🚀 ~ file: ProductController.js:121 ~ ProductController ~ updateproduct ~ req.body:", req.body)
         const files=req.files
-        
         try {
             const product=await Product.findByPk(req.params.id)
             
@@ -170,7 +169,6 @@ class ProductController{
             if(!products) throw "No existen productos de esa marca"
             res.status(200).send(products)
         } catch (error) {
-            console.log(error)
             return res.status(500).send({error})
         }
     }
@@ -200,7 +198,6 @@ class ProductController{
             if(!products) throw "No existen productos de esa marca"
             res.status(200).send(products)
         } catch (error) {
-            console.log(error)
             return res.status(500).send({error})
         }
         
@@ -261,7 +258,6 @@ class ProductController{
             
             res.status(200).send(products)
         } catch (error) {
-            console.log(error)
             return res.status(500).send({error})
         }
         
@@ -305,9 +301,6 @@ class ProductController{
 
     static async deleteImgProduct(req, res){
         const {idImg, idProd}=req.body
-        console.log("🚀 ~ file: productController.js:306 ~ ProductController ~ deleteImgProduct ~ idProd:", idProd)
-        console.log("🚀 ~ file: productController.js:306 ~ ProductController ~ deleteImgProduct ~ idImg:", idImg)
-        
         try {
             const result=await ImgProduct.destroy({
                 where:{
