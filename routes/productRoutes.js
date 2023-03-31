@@ -13,7 +13,7 @@ const UpdateImgUpload=multer({
 
 productRoutes.get("/",ProductController.getAllProducts)
 productRoutes.get("/pagination",ProductController.getPaginationProducts)
-productRoutes.get("/filter", ProductController.getProductsFilter)
+productRoutes.get("/filter", ProductController.getProductsFilterPagination)
 productRoutes.get("/:id",ProductController.getOneProductById)
 productRoutes.get("/category/:id", ProductController.getProductsByCategory)
 productRoutes.get("/brands/:id", ProductController.getProductsByBrand)

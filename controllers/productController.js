@@ -244,16 +244,6 @@ class ProductController{
                     }
                 ],
                 where:where
-                // where:{
-                //     [Op.and]:[
-                //         {ManuFacturerId:brandId},
-                //         {CategoryId:categoryId},
-                //     ],
-                //     price:{
-                //         [Op.between]:[priceMin, priceMax]
-                //     }
-
-                // }
             })
             
             res.status(200).send(products)
@@ -296,6 +286,70 @@ class ProductController{
             })
         } catch (error) {
             
+        }
+    }
+
+    static async getProductsFilterPagination(req, res){
+        try {
+            const pageAsNumber=Number.parseInt(req.query.page);
+            const sizeAsNumber=Number.parseInt(req.query.size);
+            let page=0, size=10;
+            if(!Number.isNaN(pageAsNumber) && pageAsNumber>0){
+                page=pageAsNumber
+            }
+            if(!Number.isNaN(sizeAsNumber) && sizeAsNumber>0){
+                size=sizeAsNumber
+            }
+            const{
+                categoryId,
+                brandId,
+                priceMin,
+                priceMax
+            }=req.query
+            let priceMinNumber=Number.parseInt(priceMin) ||0
+            let priceMaxNumber=Number.parseInt(priceMax) ||0
+
+            const where={}
+            where[Op.and]=[]
+            if (categoryId) {
+                where[Op.and].push({CategoryId:categoryId})
+            }
+            if(brandId){
+                where[Op.and].push({ManuFacturerId:brandId})
+            }
+            if(priceMin || priceMax){
+                where[Op.and].push({
+                    price:{
+                        [Op.between]:[priceMinNumber, priceMaxNumber]
+                    }
+                })
+            }
+            
+            const products=await Product.findAll({
+                attributes:["id", "name", "description", "price"],
+                limit:size,
+                offset:page*size,
+                include:[
+                    // {
+                    //     model:Category, required:true, attributes:["id", "name"]
+                    // },
+                    // {
+                    //     model:Manufacturer, attributes:["id", "name"]
+                    // },
+                    {
+                        model:ImgProduct, attributes:["LinkImg", "id"]
+                    }
+                ],
+                where:where
+            })
+            
+            
+            res.status(200).send({
+                count:Number.parseInt(products.length),
+                products,
+            })
+        } catch (error) {
+            return res.status(500).send({error})
         }
     }
 
