@@ -311,13 +311,14 @@ class ProductController{
 
             const where={}
             where[Op.and]=[]
-            if (categoryId) {
+            if (categoryId && categoryId>0) {
                 where[Op.and].push({CategoryId:categoryId})
             }
-            if(brandId){
+            if(brandId && brandId>0){
                 where[Op.and].push({ManuFacturerId:brandId})
             }
-            if(priceMin || priceMax){
+            // 0 100
+            if((priceMinNumber || priceMaxNumber) && (priceMaxNumber>0 || priceMinNumber>0)){
                 where[Op.and].push({
                     price:{
                         [Op.between]:[priceMinNumber, priceMaxNumber]
