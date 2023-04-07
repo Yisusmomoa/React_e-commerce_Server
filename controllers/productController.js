@@ -306,6 +306,7 @@ class ProductController{
                 priceMin,
                 priceMax
             }=req.query
+            console.log("🚀 ~ file: productController.js:309 ~ ProductController ~ getProductsFilterPagination ~ req.query:", req.query)
             let priceMinNumber=Number.parseInt(priceMin) ||0
             let priceMaxNumber=Number.parseInt(priceMax) ||0
 
