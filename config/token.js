@@ -9,7 +9,9 @@ export const generateToken=(payload)=>{
     const token= jwt.sign(
         payload, //la informaicón del usuario
         SECRET, //secret una palabra secreta, que toma como base para empezar a hashear
-        { expiresIn: '1h' });
+        { expiresIn: '30m' }
+        // { expiresIn: '1h' }
+    );
     return token;
 }
 
