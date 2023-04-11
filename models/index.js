@@ -7,7 +7,7 @@ import Product from "./Product.js";
 import Rol from './Rol.js';
 import User from "./User.js";
 import WishList from './WishList.js';
-import ShopCart from './ShopCart.js';
+import Sale from './Sale.js';
 
 // categorias de los productos
 Category.hasMany(Product)
@@ -37,7 +37,10 @@ Product.belongsToMany(User, {through:WishList})
 Buy.belongsToMany(Product, {through:DetailBuy})
 Product.belongsToMany(Buy, {through:DetailBuy})
 
-//Shop cart
+//Sale
+//Sale tendrá la FK
+Product.hasOne(Sale)
+Sale.belongsTo(Product)
 
 
-export { Category, Product, User, Manufacturer, Buy, DetailBuy, ImgProduct,Rol,WishList }
+export { Category, Product, User, Manufacturer, Buy, DetailBuy, ImgProduct,Rol,WishList, Sale }
