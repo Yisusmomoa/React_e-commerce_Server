@@ -1,19 +1,62 @@
 import { Sequelize } from "sequelize";
-import { Sale } from "../models/index.js";
+import { Category, ImgProduct, Manufacturer, Product, Sale } from "../models/index.js";
 
 class SaleController{
 
-    static getAllSales(req, res){
+    static async getAllSales(req, res){
         try {
-            
+            const sales=await Sale.findAll({
+                attributes:["id", "desc", "dateInit", "dateEnd", "ProductId"],
+                include:[
+                    {
+                        model:Product, required:true, attributes:["id", "name", "description", "price"],
+                        include:[
+                            {
+                                model:Category, required:true, attributes:["id", "name"]
+                            },
+                            {
+                                model:Manufacturer, attributes:["id", "name"]
+                            },
+                            {
+                                model:ImgProduct, attributes:["LinkImg", "id"]
+                            }
+                        ]
+                    }
+                ]
+            })
+            res.status(200).send(sales)
         } catch (error) {
             res.status(400).send({error})
         }
     }
     
-    static getOneSale(req, res){
+    static async getOneSale(req, res){
         try {
-            
+            const id=req.params.id
+            const sale=await Sale.findOne({
+                attributes:["id", "desc", "dateInit", "dateEnd", "ProductId"],
+                include:[
+                    {
+                        model:Product, required:true, attributes:["id", "name", "description", "price"],
+                        include:[
+                            {
+                                model:Category, required:true, attributes:["id", "name"]
+                            },
+                            {
+                                model:Manufacturer, attributes:["id", "name"]
+                            },
+                            {
+                                model:ImgProduct, attributes:["LinkImg", "id"]
+                            }
+                        ]
+                    }
+                ],
+                where:{id}
+            })
+            if(!sale) {
+                throw "No existe esa oferta, o ya finalizo"
+            }
+            res.status(200).send(sale)
         } catch (error) {
             res.status(400).send({error})
         }
@@ -53,16 +96,37 @@ class SaleController{
             res.status(400).send({error})
         }
     }
-    static deleteSale(req, res){
+
+    static async deleteSale(req, res){
         try {
-            
+             const id=req.params.id
+             const result=await Sale.destroy({
+                where:{id}
+             })
+             if(!result) {
+                throw "No se encontro la oferta"
+            }
+            res.status(200).send({result})
         } catch (error) {
             res.status(400).send({error})
         }
     }
-    static updateSale(req, res){
+
+    static async updateSale(req, res){
         try {
-            
+            const {
+                desc,
+                dateInit,
+                dateEnd
+            }=req.body
+            const id=req.params.id
+            // TODO primero buscar si existe, luego editar, mejor dejarlo como yo hago el update .l.
+            const result=await Sale.update(
+                {desc, dateInit, dateEnd},
+                {where:{id}}
+            );
+            if(result[0] === 0) throw "Error al querer actualizar la oferta"
+            res.status(200).send({result})
         } catch (error) {
             res.status(400).send({error})
         }
