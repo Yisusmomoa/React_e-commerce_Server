@@ -4,25 +4,30 @@ import { User } from "../models/index.js";
 import bcrypt from 'bcrypt'
 import { Op } from "sequelize";
 import { Sequelize } from "sequelize"
+import { registerMail } from "../utils/mails/registerMail.js";
 
 class UserController {
     static async createUser(req, res){
         try {
             const {username, password, email}=req.body
-            // const isEmailUsed=await User.findOne({
-            //     where:{email:email}
-            // })
-            // if(isEmailUsed)throw "email must be unique"
+            const isEmailUsed=await User.findOne({
+                where:{email:email}
+            })
+            if(isEmailUsed)throw "email must be unique"
             const result=await User.create({username,password, email});
+            await registerMail(username, email);
+            //node-cron
+            //node-schedule
             res.status(201).send({
                 success:true,
                 message:"Usuario creado con exito",
                 result
             })
         } catch (error) {
+            // const err=error.errors[0].message
             return res.status(400).send({
                 success:false,
-                message:error.errors[0].message,
+                message:error,
             })
         }
     }

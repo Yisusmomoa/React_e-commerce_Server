@@ -5,6 +5,7 @@ import productRoutes from './productRoutes.js'
 import manufacturerRoutes from "./manufacturerRouter.js";
 import wishListRoutes from "./wishListRoutes.js";
 import buyRoutes from "./buyRoutes.js";
+import saleRoutes from "./saleRoutes.js";
 
 const routes=Router()
 routes.use('/user', userRoutes)
@@ -13,4 +14,5 @@ routes.use('/product', productRoutes)
 routes.use('/manufacturer', manufacturerRoutes)
 routes.use('/wishList', wishListRoutes)
 routes.use('/buy', buyRoutes)
+routes.use('/sale', saleRoutes)
 export default routes
