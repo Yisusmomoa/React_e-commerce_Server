@@ -1,5 +1,5 @@
 import express from "express"
-import ProductController from "../controllers/ProductController.js"
+import ProductController from "../controllers/productController.js"
 import authMe from "../middleware/AuthMe.js"
 import isAdmin from "../middleware/isAdmin.js"
 import fileUpload from "../middleware/fileUpload.js";
