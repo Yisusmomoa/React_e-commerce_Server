@@ -1,6 +1,6 @@
 import express from 'express'
 const categoryRoutes=express.Router()
-import CategoryController from "../controllers/CategoryController.js";
+import CategoryController from "../controllers/categoryController.js";
 import isAdmin from '../middleware/isAdmin.js';
 import authMe from '../middleware/AuthMe.js';
 
