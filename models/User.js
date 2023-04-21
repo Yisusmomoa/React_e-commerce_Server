@@ -107,7 +107,7 @@ User.afterCreate(async user=>{
         return await user.update({role:"admin", RolId:1})
     }
     else{
-        return await user.update({role:"normal", RolId:3})
+        return await user.update({role:"normal", RolId:2})
     }
 })
 
