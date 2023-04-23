@@ -6,7 +6,7 @@ import db from './db/db.js';
 import routes from './routes/index.js';
 import cors from 'cors'
 
-const PORT=process.env.API_PORT;
+const PORT=process.env.API_PORT || 3000;
 const app=express()
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
