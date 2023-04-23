@@ -10,6 +10,7 @@ const DBDIALECT=process.env.DB_DIALECT
 const DBHOST=process.env.DB_HOST
 
 //postgres
+//mysql
 
 const db=new Sequelize(DBNAME, DBUSERNAME,DBPASSWORD,{
     host:DBHOST,
