@@ -12,6 +12,7 @@ export const generateToken=(payload)=>{
         { expiresIn: '30m' }
         // { expiresIn: '1h' }
     );
+    console.log("🚀 ~ file: token.js:15 ~ generateToken ~ token:", token)
     return token;
 }
 
