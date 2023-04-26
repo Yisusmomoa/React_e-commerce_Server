@@ -13,9 +13,11 @@ app.use(express.urlencoded({extended:true}))
 
 // middlewares de terceros
 app.use(cors({
-    origin:'http://127.0.0.1:5173',
+    origin:'*',
     credentials:true,
-    allowedHeaders:true
+    allowedHeaders:true,
+    preflightContinue:true,
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE"
 }))
 app.use(cookieParser())
 
