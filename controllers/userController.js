@@ -242,6 +242,7 @@ class UserController {
 
     // encargada de comprobar la cokkie/token
     static async me(req, res){
+        console.log("req.user", req.user)
         try {
             res.status(200).send({
                 success:true,
@@ -257,6 +258,7 @@ class UserController {
     }
 
     static async logOut(req, res){
+        console.log("logout")
         try {
             res.clearCookie("token");
             res.send(204)
