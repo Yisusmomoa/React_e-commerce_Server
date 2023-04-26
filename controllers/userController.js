@@ -230,7 +230,10 @@ class UserController {
                 imgProfile:results.imgProfile
             }
             const token=generateToken(payload)
-            res.cookie("token", token)
+            res.cookie("token", token, {
+                secure:true,
+                sameSite:false
+            })
             res.status(200).send({message:"Usuario logeado", success:true})
         } catch (error) {
             return res.status(400).send({
@@ -261,6 +264,7 @@ class UserController {
         console.log("logout")
         try {
             res.clearCookie("token");
+            clearCookie("token")
             res.send(204)
         } catch (error) {
             return res.status(500).send({
