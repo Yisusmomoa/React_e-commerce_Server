@@ -230,8 +230,8 @@ class UserController {
                 imgProfile:results.imgProfile
             }
             const token=generateToken(payload)
-            res.cookie("token", token, )
-            res.cookie("tuptm", "tuptm")
+            res.cookie("token", token,  {path: '/', domain: 'localhost'})
+            res.cookie("tuptm", "tuptm",  {path: '/', domain: 'localhost'})
             res.status(200).send({message:"Usuario logeado", success:true})
         } catch (error) {
             return res.status(400).send({
@@ -261,8 +261,8 @@ class UserController {
     static async logOut(req, res){
         console.log("logout")
         try {
-            res.clearCookie("token", {path:'/profile'});
-            res.clearCookie("tuptm", {path:'/profile'});
+            res.clearCookie("token",  {path: '/', domain: 'localhost'});
+            res.clearCookie("tuptm",  {path: '/', domain: 'localhost'});
             res.send(204)
         } catch (error) {
             return res.status(500).send({
