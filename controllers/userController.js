@@ -263,7 +263,7 @@ class UserController {
     static async logOut(req, res){
         console.log("logout")
         try {
-            res.clearCookie("token", {path:'/home'});
+            res.clearCookie("token");
             res.send(204)
         } catch (error) {
             return res.status(500).send({
