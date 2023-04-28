@@ -235,7 +235,7 @@ class UserController {
             maxAge: 1800000, // 1 hora
             httpOnly: true,
             secure: false,
-            domain: 'https://reacte-commerceserver-production.up.railway.app/',
+            domain: 'http://localhost:8080/',
             path: '/',
             sameSite: 'None'})
             res.cookie("tuptm", "tuptm")
