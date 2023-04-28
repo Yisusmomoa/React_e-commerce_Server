@@ -236,8 +236,7 @@ class UserController {
             httpOnly: true,
             secure: false,
             domain: 'http://localhost:8080/',
-            path: '/',
-            sameSite: 'None'})
+            path: '/'})
             res.cookie("tuptm", "tuptm")
             res.status(200).send({message:"Usuario logeado", success:true})
         } catch (error) {
