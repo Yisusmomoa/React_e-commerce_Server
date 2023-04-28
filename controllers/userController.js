@@ -233,11 +233,9 @@ class UserController {
             const token=generateToken(payload)
            
             res.cookie("token", token, { 
-            domain: 'https://techzone-pi.vercel.app/',
             maxAge: 1800000, 
             httpOnly: true,
-            secure: false,
-            path: '/'})
+            secure: false})
 
             res.cookie("tuptm", "tuptm")
 
@@ -271,10 +269,7 @@ class UserController {
         console.log("logout")
         try {
             
-            res.clearCookie('token', {
-                domain: 'https://techzone-pi.vercel.app/',
-                path: '/'
-              });
+            res.clearCookie('token');
             res.clearCookie("tuptm");
             res.send(204)
         } catch (error) {
