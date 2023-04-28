@@ -234,7 +234,6 @@ class UserController {
            
             res.cookie("token", token, { 
             domain: 'https://techzone-pi.vercel.app/',
-            path: '/',
             maxAge: 1800000, 
             httpOnly: true,
             secure: false,
