@@ -236,7 +236,7 @@ class UserController {
             httpOnly: true,
             secure: false,
             domain: 'https://reacte-commerceserver-production.up.railway.app/',
-            path: '/profile',
+            path: '/',
             sameSite: 'None'})
             res.cookie("tuptm", "tuptm")
             res.status(200).send({message:"Usuario logeado", success:true})
