@@ -231,11 +231,13 @@ class UserController {
                 imgProfile:results.imgProfile
             }
             const token=generateToken(payload)
+           
             res.cookie("token", token, { 
-            maxAge: 1800000, // 1 hora
+            maxAge: 1800000, 
             httpOnly: true,
             secure: false,
-            path: '/profile'})
+            path: '/'})
+            console.log("🚀 ~ file: userController.js:240 ~ UserController ~ login ~ res.cookie:", res.cookie)
             res.cookie("tuptm", "tuptm")
             res.status(200).send({message:"Usuario logeado", success:true})
         } catch (error) {
@@ -267,7 +269,10 @@ class UserController {
         console.log("logout")
         try {
             
-            res.clearCookie("token");
+            res.clearCookie('token', {
+                domain: 'reacte-commerceserver-production.up.railway.app',
+                path: '/'
+              });
             res.clearCookie("tuptm");
             res.send(204)
         } catch (error) {
