@@ -233,9 +233,7 @@ class UserController {
             const token=generateToken(payload)
            
             res.cookie("token", token, { 
-            maxAge: 1800000, 
-            httpOnly: true,
-            secure: false})
+            maxAge: 1800000, secure: false})
 
             res.cookie("tuptm", "tuptm")
 
