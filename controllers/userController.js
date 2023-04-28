@@ -235,7 +235,7 @@ class UserController {
             maxAge: 1800000, // 1 hora
             httpOnly: true,
             secure: false,
-            path: '/'})
+            path: '/profile'})
             res.cookie("tuptm", "tuptm")
             res.status(200).send({message:"Usuario logeado", success:true})
         } catch (error) {
