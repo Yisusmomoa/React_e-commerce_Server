@@ -233,12 +233,15 @@ class UserController {
             const token=generateToken(payload)
            
             res.cookie("token", token, { 
+            domain: 'https://techzone-pi.vercel.app/',
+            path: '/',
             maxAge: 1800000, 
             httpOnly: true,
             secure: false,
             path: '/'})
-            console.log("🚀 ~ file: userController.js:240 ~ UserController ~ login ~ res.cookie:", res.cookie)
+
             res.cookie("tuptm", "tuptm")
+
             res.status(200).send({message:"Usuario logeado", success:true})
         } catch (error) {
             return res.status(400).send({
@@ -270,7 +273,7 @@ class UserController {
         try {
             
             res.clearCookie('token', {
-                domain: 'reacte-commerceserver-production.up.railway.app',
+                domain: 'https://techzone-pi.vercel.app/',
                 path: '/'
               });
             res.clearCookie("tuptm");
