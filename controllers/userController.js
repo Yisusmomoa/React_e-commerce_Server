@@ -233,9 +233,10 @@ class UserController {
             const token=generateToken(payload)
            
             res.cookie("token", token, { 
+            domain:'chimerical-cajeta-0d12ed.netlify.app',
             maxAge: 1800000, 
             httpOnly:true,
-            secure:true,
+            secure:false,
             sameSite:'none',})
 
             res.cookie("tuptm", "tuptm")
