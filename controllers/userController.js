@@ -231,7 +231,10 @@ class UserController {
                 imgProfile:results.imgProfile
             }
             const token=generateToken(payload)
-            res.cookie("token", token)
+            res.cookie("token", token, { 
+            maxAge: 1800000, // 1 hora
+            httpOnly: true,
+            secure: true})
             res.cookie("tuptm", "tuptm")
             res.status(200).send({message:"Usuario logeado", success:true})
         } catch (error) {
