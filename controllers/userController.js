@@ -234,7 +234,10 @@ class UserController {
             res.cookie("token", token, { 
             maxAge: 1800000, // 1 hora
             httpOnly: true,
-            secure: true})
+            secure: false,
+            domain: 'https://reacte-commerceserver-production.up.railway.app/',
+            path: '/profile',
+            sameSite: 'None'})
             res.cookie("tuptm", "tuptm")
             res.status(200).send({message:"Usuario logeado", success:true})
         } catch (error) {
