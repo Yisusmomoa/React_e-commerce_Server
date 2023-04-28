@@ -10,15 +10,27 @@ const port =process.env.PORT || 3000;
 const app=express()
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
-
+const allowedOrigins = ['https://techzone-pi.vercel.app', 'http://127.0.0.1:5173'];
 // middlewares de terceros
+// app.use(cors({
+//     origin:['https://techzone-pi.vercel.app', 'http://127.0.0.1:5173'],
+//     credentials:false,
+//     allowedHeaders:true,
+//     preflightContinue:true,
+//     methods: "GET,HEAD,PUT,PATCH,POST,DELETE"
+// }))
+
 app.use(cors({
-    origin:['https://techzone-pi.vercel.app', 'http://127.0.0.1:5173'],
-    credentials:false,
-    allowedHeaders:true,
-    preflightContinue:true,
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE"
-}))
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    credentials: true // permite manejar cookies
+  }));
+
 app.use(cookieParser())
 
 app.use(morgan('tiny'))
