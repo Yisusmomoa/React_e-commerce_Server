@@ -5,6 +5,7 @@ import bcrypt from 'bcrypt'
 import { Op } from "sequelize";
 import { Sequelize } from "sequelize"
 import { registerMail } from "../utils/mails/registerMail.js";
+import jwt from 'jsonwebtoken'
 
 class UserController {
     static async createUser(req, res){
@@ -261,6 +262,7 @@ class UserController {
     static async logOut(req, res){
         console.log("logout")
         try {
+            
             res.clearCookie("token",  {path: '/', domain: 'localhost'});
             res.clearCookie("tuptm",  {path: '/', domain: 'localhost'});
             res.send(204)

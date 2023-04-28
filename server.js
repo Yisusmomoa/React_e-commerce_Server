@@ -14,7 +14,7 @@ app.use(express.urlencoded({extended:true}))
 // middlewares de terceros
 app.use(cors({
     origin:['https://techzone-pi.vercel.app', 'http://127.0.0.1:5173'],
-    credentials:true,
+    credentials:false,
     allowedHeaders:true,
     preflightContinue:true,
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE"
