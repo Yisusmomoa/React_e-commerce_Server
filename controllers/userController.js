@@ -231,9 +231,11 @@ class UserController {
                 imgProfile:results.imgProfile
             }
             const token=generateToken(payload)
-           
+            res.header('Access-Control-Allow-Origin', req.headers.origin);
+            res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
             res.cookie("token", token, { 
             domain:'chimerical-cajeta-0d12ed.netlify.app',
+            path:'/',
             maxAge: 1800000, 
             httpOnly:true,
             secure:false,
