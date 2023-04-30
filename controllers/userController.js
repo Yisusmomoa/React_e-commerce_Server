@@ -254,6 +254,8 @@ class UserController {
     static async me(req, res){
         console.log("🚀 ~ file: userController.js:256 ~ UserController ~ me ~ req.user:", req.user)
         try {
+            res.header('Access-Control-Allow-Origin', req.headers.origin);
+            res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
             res.status(200).send({
                 success:true,
                 message:"usuario encontrado",
