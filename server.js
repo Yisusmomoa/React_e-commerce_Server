@@ -23,7 +23,6 @@ const allowedOrigins = ['https://techzone-pi.vercel.app', 'http://127.0.0.1:5173
 app.use(cors({
     origin: allowedOrigins, 
     credentials: true,
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     allowedHeaders:true,
   }))
 
