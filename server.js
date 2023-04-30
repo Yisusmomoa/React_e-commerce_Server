@@ -10,7 +10,8 @@ const port =process.env.PORT || 3000;
 const app=express()
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
-const allowedOrigins = ['https://techzone-pi.vercel.app', 'http://127.0.0.1:5173', 'https://chimerical-cajeta-0d12ed.netlify.app'];
+const allowedOrigins = ['https://techzone-pi.vercel.app', 'http://127.0.0.1:5173', 
+    'https://chimerical-cajeta-0d12ed.netlify.app', 'https://tuptm.vercel.app', 'https://tuptm-yisusmomoa.vercel.app'];
 // middlewares de terceros
 // app.use(cors({
 //     origin:['https://techzone-pi.vercel.app', 'http://127.0.0.1:5173'],
