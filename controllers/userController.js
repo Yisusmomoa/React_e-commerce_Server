@@ -234,11 +234,10 @@ class UserController {
             res.header('Access-Control-Allow-Origin', req.headers.origin);
             res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
             res.cookie("token", token, { 
-            domain:'chimerical-cajeta-0d12ed.netlify.app',
+            secure:true,
+            sameSite:'none',
             maxAge: 1800000, 
-            httpOnly:true,
-            secure:false,
-            sameSite:'none'})
+            httpOnly:true,})
 
             res.cookie("tuptm", "tuptm")
 
