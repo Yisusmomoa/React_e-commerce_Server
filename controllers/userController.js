@@ -252,7 +252,7 @@ class UserController {
 
     // encargada de comprobar la cokkie/token
     static async me(req, res){
-        console.log("req.user", req.user)
+        console.log("🚀 ~ file: userController.js:256 ~ UserController ~ me ~ req.user:", req.user)
         try {
             res.status(200).send({
                 success:true,
