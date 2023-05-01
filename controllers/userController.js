@@ -234,7 +234,7 @@ class UserController {
             res.header('Access-Control-Allow-Origin', req.headers.origin);
             res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
             res.cookie("token", token, { 
-            secure:true,
+            secure:false,
             sameSite:'none',
             maxAge: 1800000, 
             httpOnly:true,})
@@ -273,7 +273,7 @@ class UserController {
         console.log("logout")
         try {
             res.clearCookie('token', { 
-                secure:true,
+                secure:false,
                 sameSite:'none',
                 maxAge: 1800000, 
                 httpOnly:true,});
