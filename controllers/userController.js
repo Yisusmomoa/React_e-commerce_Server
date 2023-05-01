@@ -278,7 +278,6 @@ class UserController {
                 maxAge: 1800000, 
                 httpOnly:true,});
             res.clearCookie("tuptm");
-            res.end()
             res.send(204)
         } catch (error) {
             return res.status(500).send({
