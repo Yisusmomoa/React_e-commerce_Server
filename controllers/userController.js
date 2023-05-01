@@ -272,8 +272,6 @@ class UserController {
     static async logOut(req, res){
         console.log("logout")
         try {
-            res.header('Access-Control-Allow-Origin', req.headers.origin);
-            res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
             res.clearCookie('token', { 
                 secure:true,
                 sameSite:'none',
