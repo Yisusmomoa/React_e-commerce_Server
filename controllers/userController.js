@@ -56,7 +56,8 @@ class UserController {
                      ]
                 ]
             })
-            if(users.length===0) throw "No hay usuarios para mostrar"
+            // if(users.length===0) throw "No hay usuarios para mostrar"
+            console.log("🚀 ~ file: userController.js:60 ~ UserController ~ getAllUser ~ users:", users)
             res.status(200).send(users)
         } catch (error) {
             return res.status(500).send({
