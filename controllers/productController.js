@@ -123,6 +123,9 @@ class ProductController{
     static async updateproduct(req, res){
         const {name, price, CategoryId, 
             description, ManuFacturerId}=req.body
+        const priceAsNumber=Number.parseInt(price)
+        const CategoryIdAsNumber=Number.parseInt(CategoryId)
+        const ManuFacturerIdAsNumber=Number.parseInt(ManuFacturerId)
         const files=req.files
         try {
             const product=await Product.findByPk(req.params.id)
@@ -133,9 +136,10 @@ class ProductController{
             if(price){
                 if(price[0]!=='') product.price= price
             }
-            product.CategoryId=CategoryId || product.CategoryId
+            product.price=priceAsNumber || product.price
+            product.CategoryId=CategoryIdAsNumber || product.CategoryId
             product.description=description || product.description
-            product.ManuFacturerId=ManuFacturerId|| product.ManuFacturerId
+            product.ManuFacturerId=ManuFacturerIdAsNumber|| product.ManuFacturerId
             if(files){
                 if(!await imgProductController.addImagesProduct(req.params.id, files)) throw "Error al subir las imagenes del producto"
             }
