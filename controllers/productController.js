@@ -49,6 +49,8 @@ class ProductController{
 
     static async createProduct(req, res){
         const {name, price, CategoryId, description,ManuFacturerId }=req.body
+        console.log("🚀 ~ file: productController.js:52 ~ ProductController ~ createProduct ~ price:", price)
+        const priceAsNumber=Number.parseInt(price)
         const files=req.files
         // recibir la imagen y subirla a firebase/drive
         // luego obtener la ruta y guadrar la ruta
@@ -58,7 +60,7 @@ class ProductController{
 
             const result=await Product.create({
                 name:name,
-                price:price,
+                price:priceAsNumber,
                 CategoryId:CategoryId,
                 description:description,
                 ManuFacturerId:ManuFacturerId
