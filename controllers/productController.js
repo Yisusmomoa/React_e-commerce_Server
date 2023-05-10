@@ -51,6 +51,8 @@ class ProductController{
         const {name, price, CategoryId, description,ManuFacturerId }=req.body
         console.log("🚀 ~ file: productController.js:52 ~ ProductController ~ createProduct ~ price:", price)
         const priceAsNumber=Number.parseInt(price)
+        const CategoryIdAsNumber=Number.parseInt(CategoryId)
+        const ManuFacturerIdAsNumber=Number.parseInt(ManuFacturerId)
         const files=req.files
         // recibir la imagen y subirla a firebase/drive
         // luego obtener la ruta y guadrar la ruta
@@ -61,9 +63,9 @@ class ProductController{
             const result=await Product.create({
                 name:name,
                 price:priceAsNumber,
-                CategoryId:CategoryId,
+                CategoryId:CategoryIdAsNumber,
                 description:description,
-                ManuFacturerId:ManuFacturerId
+                ManuFacturerId:ManuFacturerIdAsNumber
             })
             if(!result) throw "Error, no se pudo dar de alta el producto"
             const idProd=result.id
