@@ -41,7 +41,9 @@ class ManuFacturerController {
     static async createManufacturer(req, res){
         try {
             const {name}=req.body
+            console.log("🚀 ~ file: manufacturerController.js:44 ~ ManuFacturerController ~ createManufacturer ~ name:", name)
             const imgBrand=req.file
+            console.log("🚀 ~ file: manufacturerController.js:46 ~ ManuFacturerController ~ createManufacturer ~ imgBrand:", imgBrand)
             if(!name || !imgBrand) throw "Llena los campos"
             const storageRef=ref(storage, `brand_Imgs/Brand_${name}/${imgBrand.originalname}`)
             const metaData={
