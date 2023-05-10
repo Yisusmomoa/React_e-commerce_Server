@@ -38,5 +38,6 @@ await db.sync({force:false}).then(()=>{
     })
 })
 
+export default app
 
 
