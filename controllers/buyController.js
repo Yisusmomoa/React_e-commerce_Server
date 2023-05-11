@@ -40,6 +40,7 @@ class BuyController{
                     ]
               })
               if(!results) throw "No haz realizado compras"
+              console.log("🚀 ~ file: buyController.js:43 ~ BuyController ~ getAllBuysFromUser ~ results:", results)
               res.status(200).send(results)
           }
           else{
@@ -72,6 +73,7 @@ class BuyController{
                     subTotal,
                     superTotal
                 })
+                console.log("🚀 ~ file: buyController.js:76 ~ BuyController ~ makeBuy ~ result:", result)
                 if(!result) throw "Error, al momento de realizar la compra"
     
                 if(!detailBuyController.addProductsToDetailBuy(products, result.id)) throw "Error al momento de realizar la compra"
