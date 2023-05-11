@@ -57,7 +57,6 @@ class UserController {
                 ]
             })
             // if(users.length===0) throw "No hay usuarios para mostrar"
-            console.log("🚀 ~ file: userController.js:60 ~ UserController ~ getAllUser ~ users:", users)
             res.status(200).send(users)
         } catch (error) {
             return res.status(500).send({
@@ -85,6 +84,7 @@ class UserController {
 
     static async updateUser(req, res){
         try {
+            
             const {
                 email,
                 password,
@@ -119,8 +119,18 @@ class UserController {
                 role:user.role,
                 rolId:user.RolId,
             }
+            // console.log("🚀 ~ file: userController.js:122 ~ UserController ~ updateUser ~ payload:", payload)
+            
             const token=generateToken(payload)
-            res.cookie("token", token)
+            console.log("🚀 ~ file: userController.js:124 ~ UserController ~ updateUser ~ token:", token)
+            res.header('Access-Control-Allow-Origin', req.headers.origin);
+            res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+            res.cookie("token", token, { 
+            secure:true,
+            sameSite:'none',
+            maxAge: 1800000, 
+            httpOnly:true,})
+
             res.status(200).send({
                 success:true,
                 message:"Usuario editado con exito",
@@ -253,7 +263,7 @@ class UserController {
 
     // encargada de comprobar la cokkie/token
     static async me(req, res){
-        console.log("🚀 ~ file: userController.js:256 ~ UserController ~ me ~ req.user:", req.user)
+        // console.log("🚀 ~ file: userController.js:256 ~ UserController ~ me ~ req.user:", req.user)
         try {
             res.header('Access-Control-Allow-Origin', req.headers.origin);
             res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
