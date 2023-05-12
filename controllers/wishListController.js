@@ -9,13 +9,16 @@ class wishListController{
         try {
             const idProd=req.body.id
             const idUser=req.user.id
-            const result=await WishList.create({
-                UserId:idUser,
-                ProductId:idProd
+            const [wishlist, created]=await WishList.findOrCreate({
+                where:{
+                    UserId:idUser,
+                    ProductId:idProd
+                }
             })
-            res.status(201).send(result)
+            if(!created) throw '"Ya agregaste este producto a tu wishlist'
+            res.status(201).send(wishlist)
         } catch (error) {
-            return res.status(400).send({message:error})
+            return res.status(500).send({message:error})
         }
     }
 
