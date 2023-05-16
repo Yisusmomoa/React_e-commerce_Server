@@ -10,24 +10,7 @@ class ProductController{
     static async getAllProducts(req, res){
         try {
             const products=await Product.findAll({
-                attributes:["id", "name", "description", "price",
-                    "createdAt",[
-                        Sequelize.fn(
-                            "DATE_FORMAT", 
-                            Sequelize.col("Product.createdAt"), 
-                            "%d-%m-%Y %H:%i:%s", 
-                        ),  
-                        "createdAt",
-                    ],
-                    "updatedAt",[
-                        Sequelize.fn(
-                            "DATE_FORMAT", 
-                            Sequelize.col("Product.updatedAt"), 
-                            "%d-%m-%Y %H:%i:%s", 
-                        ),  
-                        "updatedAt",
-                    ]
-                ],
+                attributes:["id", "name", "description", "price"],
                 order:Sequelize.col('id'),
                 include:[
                     {

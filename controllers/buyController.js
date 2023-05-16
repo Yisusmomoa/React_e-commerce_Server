@@ -11,14 +11,6 @@ class BuyController{
                     attributes:["id", 
                         "subTotal", 
                         "superTotal", 
-                        "createdAt",[
-                            Sequelize.fn(
-                                "DATE_FORMAT", 
-                                Sequelize.col("Buy.createdAt"), 
-                                "%d-%m-%Y", 
-                            ),  
-                            "createdAt",
-                        ]
                     ],
                     where:{UserId:idUser},
                     include:[
@@ -40,7 +32,6 @@ class BuyController{
                     ]
               })
               if(!results) throw "No haz realizado compras"
-              console.log("🚀 ~ file: buyController.js:43 ~ BuyController ~ getAllBuysFromUser ~ results:", results)
               res.status(200).send(results)
           }
           else{
@@ -104,15 +95,7 @@ class BuyController{
             const results=await Buy.findOne({
                 attributes:["id", 
                         "subTotal", 
-                        "superTotal", 
-                        "createdAt",[
-                            Sequelize.fn(
-                                "DATE_FORMAT", 
-                                Sequelize.col("Buy.createdAt"), 
-                                "%d-%m-%Y", 
-                            ),  
-                            "createdAt",
-                        ]
+                        "superTotal",
                 ],
                 include:[
                     {

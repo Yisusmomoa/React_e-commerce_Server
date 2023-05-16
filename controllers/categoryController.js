@@ -4,24 +4,7 @@ import { Category } from "../models/index.js"
 class CategoryController {
     static getAllCategories(req, res) {
         Category.findAll({ 
-            attributes:["id", "name", 
-                "createdAt",[
-                Sequelize.fn(
-                    "DATE_FORMAT", 
-                    Sequelize.col("createdAt"), 
-                    "%d-%m-%Y %H:%i:%s", 
-                ),  
-                "createdAt",
-            ],
-             "updatedAt",[
-                Sequelize.fn(
-                    "DATE_FORMAT", 
-                    Sequelize.col("updatedAt"), 
-                    "%d-%m-%Y %H:%i:%s", 
-                ),  
-                "updatedAt",
-             ]
-            ],
+            attributes:["id", "name"],
             order:Sequelize.col('id')
         })
             .then(results => {

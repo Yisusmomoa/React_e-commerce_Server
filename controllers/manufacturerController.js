@@ -13,24 +13,7 @@ class ManuFacturerController {
     static async getAllManufacturer(req, res){
         try {
             const results=await Manufacturer.findAll({
-                attributes:["id", "name", "imgManuFacturer",
-                    "createdAt",[
-                        Sequelize.fn(
-                            "DATE_FORMAT", 
-                            Sequelize.col("createdAt"), 
-                            "%d-%m-%Y %H:%i:%s", 
-                        ),  
-                        "createdAt",
-                    ],
-                    "updatedAt",[
-                        Sequelize.fn(
-                            "DATE_FORMAT", 
-                            Sequelize.col("updatedAt"), 
-                            "%d-%m-%Y %H:%i:%s", 
-                        ),  
-                        "updatedAt",
-                    ]
-                ],
+                attributes:["id", "name", "imgManuFacturer"],
                 order:Sequelize.col('id')
             })
             res.status(200).send(results)
