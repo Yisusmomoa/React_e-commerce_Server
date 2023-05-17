@@ -10,23 +10,33 @@ class ProductController{
     static async getAllProducts(req, res){
         try {
             const products=await Product.findAll({
-                attributes:["id", "name", "description", "price",
-                    "createdAt",[Sequelize.fn("to_char", Sequelize.col("createdAt"), "DD-MM-YYYY HH24:MI:SS"), "createdAt"],  
-                    "updatedAt",[Sequelize.fn("to_char", Sequelize.col("updatedAt"), "DD-MM-YYYY HH24:MI:SS"), "updatedAt"]
+                attributes:[
+                  "id", 
+                  "name", 
+                  "description", 
+                  "price",
+                  "createdAt",
+                  [Sequelize.fn("to_char", Sequelize.col("createdAt"), "DD-MM-YYYY HH24:MI:SS"), "createdAt"],  
+                  "updatedAt",
+                  [Sequelize.fn("to_char", Sequelize.col("updatedAt"), "DD-MM-YYYY HH24:MI:SS"), "updatedAt"]
                 ],
                 order:Sequelize.col('id'),
                 include:[
-                    {
-                        model:Category, required:true, attributes:["id", "name"]
-                    },
-                    {
-                        model:Manufacturer, attributes:["id", "name"]
-                    },
-                    {
-                        model:ImgProduct, attributes:["LinkImg", "id"]
-                    }
+                  {
+                    model: Category,
+                    required: true,
+                    attributes: ["id", "name"]
+                  },
+                  {
+                    model: Manufacturer,
+                    attributes: ["id", "name"]
+                  },
+                  {
+                    model: ImgProduct,
+                    attributes: ["LinkImg", "id"]
+                  }
                 ]
-            })
+              });
             res.status(200).send(products)
         } catch (error) {
             return res.status(500).send({error})
