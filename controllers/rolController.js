@@ -3,10 +3,12 @@ import { Rol } from "../models/index.js";
 
 class RolController{
     static async creteRol(req, res){
+        const {nameRol}=req.body
+        console.log("🚀 ~ file: rolController.js:7 ~ RolController ~ creteRol ~ nameRol:", nameRol)
         try {
             const [rolName, created]=await Rol.findOrCreate({
                 where:{
-                    nameRol:req.body.nameRol
+                    nameRol:nameRol
                 }
             })
             if(!created) throw 'Ya existe ese rol'
