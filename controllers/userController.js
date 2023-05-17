@@ -38,22 +38,8 @@ class UserController {
             const users=await User.findAll({
                 attributes:["id", "username","isActive", 
                     "email", "role", "imgProfile", "RolId",
-                    "createdAt",[
-                        Sequelize.fn(
-                            "DATE_FORMAT", 
-                            Sequelize.col("createdAt"), 
-                            "%d-%m-%Y %H:%i:%s", 
-                        ),  
-                        "createdAt",
-                    ],
-                     "updatedAt",[
-                        Sequelize.fn(
-                            "DATE_FORMAT", 
-                            Sequelize.col("updatedAt"), 
-                            "%d-%m-%Y %H:%i:%s", 
-                        ),  
-                        "updatedAt",
-                     ]
+                    "createdAt",[Sequelize.fn("to_char", Sequelize.col("createdAt"), "DD-MM-YYYY HH24:MI:SS"), "createdAt"],  
+                    "updatedAt",[Sequelize.fn("to_char", Sequelize.col("updatedAt"), "DD-MM-YYYY HH24:MI:SS"), "updatedAt"]
                 ]
             })
             // if(users.length===0) throw "No hay usuarios para mostrar"

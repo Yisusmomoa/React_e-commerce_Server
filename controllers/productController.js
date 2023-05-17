@@ -11,22 +11,8 @@ class ProductController{
         try {
             const products=await Product.findAll({
                 attributes:["id", "name", "description", "price",
-                    "createdAt",[
-                        Sequelize.fn(
-                            "DATE_FORMAT", 
-                            Sequelize.col("Product.createdAt"), 
-                            "%d-%m-%Y %H:%i:%s", 
-                        ),  
-                        "createdAt",
-                    ],
-                    "updatedAt",[
-                        Sequelize.fn(
-                            "DATE_FORMAT", 
-                            Sequelize.col("Product.updatedAt"), 
-                            "%d-%m-%Y %H:%i:%s", 
-                        ),  
-                        "updatedAt",
-                    ]
+                    "createdAt",[Sequelize.fn("to_char", Sequelize.col("createdAt"), "DD-MM-YYYY HH24:MI:SS"), "createdAt"],  
+                    "updatedAt",[Sequelize.fn("to_char", Sequelize.col("updatedAt"), "DD-MM-YYYY HH24:MI:SS"), "updatedAt"]
                 ],
                 order:Sequelize.col('id'),
                 include:[

@@ -11,14 +11,7 @@ class BuyController{
                     attributes:["id", 
                         "subTotal", 
                         "superTotal", 
-                        "createdAt",[
-                            Sequelize.fn(
-                                "DATE_FORMAT", 
-                                Sequelize.col("Buy.createdAt"), 
-                                "%d-%m-%Y", 
-                            ),  
-                            "createdAt",
-                        ]
+                        "createdAt",[Sequelize.fn("to_char", Sequelize.col("createdAt"), "DD-MM-YYYY HH24:MI:SS"), "createdAt"],  
                     ],
                     where:{UserId:idUser},
                     include:[
@@ -105,14 +98,7 @@ class BuyController{
                 attributes:["id", 
                         "subTotal", 
                         "superTotal", 
-                        "createdAt",[
-                            Sequelize.fn(
-                                "DATE_FORMAT", 
-                                Sequelize.col("Buy.createdAt"), 
-                                "%d-%m-%Y", 
-                            ),  
-                            "createdAt",
-                        ]
+                        "createdAt",[Sequelize.fn("to_char", Sequelize.col("createdAt"), "DD-MM-YYYY HH24:MI:SS"), "createdAt"],  
                 ],
                 include:[
                     {

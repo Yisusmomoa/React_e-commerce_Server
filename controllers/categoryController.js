@@ -6,8 +6,7 @@ class CategoryController {
         Category.findAll({ 
             attributes:["id", "name", 
                 "createdAt",[Sequelize.fn("to_char", Sequelize.col("createdAt"), "DD-MM-YYYY HH24:MI:SS"), "createdAt"],  
-                "updatedAt", 
-                [Sequelize.fn("to_char", Sequelize.col("updatedAt"), "DD-MM-YYYY HH24:MI:SS"), "updatedAt"]
+                "updatedAt",[Sequelize.fn("to_char", Sequelize.col("updatedAt"), "DD-MM-YYYY HH24:MI:SS"), "updatedAt"]
             ],
             order:Sequelize.col('id')
         })
