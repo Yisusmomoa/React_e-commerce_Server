@@ -18,6 +18,19 @@ class RolController{
             })
         }
     }
+    static async showRols(req, res){
+        try {
+            const results=await Rol.findAll({
+                attributes:["id", "nameRol"]
+            })
+            res.status(200).send(results) 
+        } catch (error) {
+            return res.status(400).send({
+                success:false,
+                message:error,
+            })
+        }
+    }
 }
 
 export default RolController
