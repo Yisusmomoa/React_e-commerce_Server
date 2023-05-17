@@ -12,10 +12,15 @@ const DBHOST=process.env.DB_HOST
 //postgres
 //mysql
 
-const db=new Sequelize(DBNAME, DBUSERNAME,DBPASSWORD,{
-    host:DBHOST,
-    dialect:DBDIALECT,
-    port:DBPORT
+// const db=new Sequelize(DBNAME, DBUSERNAME,DBPASSWORD,{
+//     host:DBHOST,
+//     dialect:DBDIALECT,
+//     port:DBPORT
+// })
+
+const db=new Sequelize(DBHOST, {
+  dialect:DBDIALECT,
+  
 })
 
 try {
