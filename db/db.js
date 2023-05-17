@@ -20,7 +20,13 @@ const DBHOST=process.env.DB_HOST
 
 const db=new Sequelize(DBHOST, {
   dialect:DBDIALECT,
-  
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false
+    }
+  },
+
 })
 
 try {
