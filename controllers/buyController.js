@@ -11,7 +11,7 @@ class BuyController{
                     attributes:["id", 
                         "subTotal", 
                         "superTotal", 
-                        "createdAt",[Sequelize.fn("to_char", Sequelize.col("createdAt"), "DD-MM-YYYY HH24:MI:SS"), "createdAt"],  
+                        // "createdAt",[Sequelize.fn("to_char", Sequelize.col("createdAt"), "DD-MM-YYYY HH24:MI:SS"), "createdAt"],  
                     ],
                     where:{UserId:idUser},
                     include:[
