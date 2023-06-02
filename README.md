@@ -2,6 +2,11 @@
 ![Logo](https://firebasestorage.googleapis.com/v0/b/e-commerce-c409f.appspot.com/o/Logo1-removebg-preview.png?alt=media&token=605c31c3-fae2-4b48-b148-1bf6449e2a67)
 
 
+## Badges
+
+![Badge en Desarollo](https://img.shields.io/badge/STATUS-EN%20DESAROLLO-green)
+
+
 # Tech zone
 
 Tech Zone es un e-commerce que se especializa en la venta de productos electrónicos, como teléfonos inteligentes, tabletas, computadoras portátiles, accesorios de tecnología y mucho más.
@@ -9,11 +14,14 @@ Tech Zone es un e-commerce que se especializa en la venta de productos electrón
 El sitio web de Tech Zone es fácil de navegar y tiene un diseño moderno y atractivo. En la página principal, los clientes pueden encontrar las últimas ofertas y promociones, así como una sección de productos más populares. Además, el sitio web cuenta con un sistema de búsqueda que permite a los clientes encontrar fácilmente los productos que desean.
 
 
-## Tech Stack
-
-**Client:** React, Redux, Styled-components, RTK query, React hook form, React Router
-
-**Server:** Node, Express, Mysql, Jwt, Sequelize, 
+## 🛠 Tech Stack 
+- Javascript
+- Node
+- Express
+- Mysql
+- Jwt
+- Sequelize
+- Firebase
 
 
 ## Run Locally
@@ -82,3 +90,8 @@ To run this project, you will need to add the following environment variables to
 
 `MEASUREMENT_ID`
 
+
+## Diseño de la base de datos
+
+
+![Base de datos](https://firebasestorage.googleapis.com/v0/b/e-commerce-c409f.appspot.com/o/ModeloRelacional.PNG?alt=media&token=952f9a17-1a4a-449d-a520-1e153014f5f0)
