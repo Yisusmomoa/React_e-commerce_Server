@@ -95,3 +95,10 @@ To run this project, you will need to add the following environment variables to
 
 
 ![Base de datos](https://firebasestorage.googleapis.com/v0/b/e-commerce-c409f.appspot.com/o/ModeloRelacional.PNG?alt=media&token=952f9a17-1a4a-449d-a520-1e153014f5f0)
+## Demo
+
+### Usuario Normal
+![Normal](https://firebasestorage.googleapis.com/v0/b/e-commerce-c409f.appspot.com/o/Normal.gif?alt=media&token=4d45f862-1702-42c4-8fe5-99e45bc3ce7d)
+
+### Usuario Admin
+![Admin](https://firebasestorage.googleapis.com/v0/b/e-commerce-c409f.appspot.com/o/Admin.gif?alt=media&token=39d8c4ab-43da-4542-b7f0-662b5ed28722)
